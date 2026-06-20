@@ -183,6 +183,7 @@ export default function NotificationsMenu() {
 
                                     {" "}
                                     {(() => {
+                                        // {console.log(no.type)}
                                         switch (no.type) {
                                             case "follow_user":
                                                 return "started following you.";

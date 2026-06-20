@@ -3,6 +3,7 @@ import { Avatar, TextField, Button } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { UserContext } from "../../Contexts/UserContext";
 import { changePasswordApi, uploadProfilePhoto } from "../../Services/Profile";
+import { showToast } from "../CustomToast";
 
 export default function ProfileSettings() {
   const fileRef = useRef(null);
@@ -46,6 +47,7 @@ export default function ProfileSettings() {
       // console.log(res.data.photo);
 
       if (res.data.photo) {
+        showToast('photo changed successfully!', 'success');
         setUserData((prev) => ({
           ...prev,
           photo: res.data.photo,
@@ -83,6 +85,7 @@ export default function ProfileSettings() {
         setPassword("")
         setNewPassword("")
         setSuccess("Password updated successfully");
+        showToast('Password changed successfully!', 'success');
 
       } catch (error) {
         setError("Server error");

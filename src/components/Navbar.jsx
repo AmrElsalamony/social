@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 import {
   AppBar,
   Toolbar,
@@ -90,7 +91,7 @@ const { notificationNumber } = useContext(NotificationContext)
               cursor-pointer
               "
             >
-              Circle
+              Amr
             </div>
            </Link>
 
@@ -201,6 +202,31 @@ const { notificationNumber } = useContext(NotificationContext)
                 }}
               >
                 {<SettingsIcon/>}
+              </IconButton>
+            </Link>
+              <Link  to={"/bookmarks"}>
+            
+              <IconButton
+                
+                onClick={() => setActive("bookmarks")}
+                
+                sx={{
+                  borderBottom:
+                     location.pathname === "/bookmarks"
+                      ? "3px solid #1877F2"
+                      : "none",
+
+                  borderRadius: 0,
+
+                  color:
+                     location.pathname === "/bookmarks"
+                      ? "#1877F2"
+                      : "#65676B",
+
+                  width: 100,
+                }}
+              >
+                {<BookmarkIcon/>}
               </IconButton>
             </Link>
           
@@ -365,6 +391,28 @@ const { notificationNumber } = useContext(NotificationContext)
 
                   <ListItemText
                     primary={"settings"}
+                  />
+                </ListItemButton>
+              </ListItem>
+              </Link>
+
+              <Link  to={"/bookmarks"}>
+              <ListItem
+               
+                disablePadding
+              >
+                <ListItemButton
+                  onClick={() => {
+                    setActive("bookmarks");
+                    setOpen(false);
+                  }}
+                >
+                  <div className="mr-4">
+                    <BookmarkIcon />
+                  </div>
+
+                  <ListItemText
+                    primary={"bookmarks"}
                   />
                 </ListItemButton>
               </ListItem>

@@ -4,6 +4,7 @@ import { Avatar } from "@mui/material";
 import { UserContext } from "../../Contexts/UserContext";
 import { Link } from "react-router-dom";
 import { addPost } from "../../Services/PostsServices";
+import { showToast } from "../CustomToast";
 
 export default function CreatePost({ getData }) {
 
@@ -45,8 +46,8 @@ export default function CreatePost({ getData }) {
       setLoading(true);
 
       const res = await addPost(text, imageFile);
-
-      console.log(res);
+      showToast('Post created successfully!', 'success');
+      // console.log(res);
 
       setText("");
       removeImage();

@@ -45,7 +45,7 @@ const ProfilePosts = () => {
       ) : posts.length > 0 ? (
         posts.map((post) => (
 
-          <PostCard key={post._id} postData={post} />
+          <PostCard getProfilePosts={getPosts} key={post._id} postData={post} />
         ))
       ) : <>
       <div>

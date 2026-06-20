@@ -7,6 +7,7 @@ import getUnreadNotifications from '../Services/Notifications';
 import { getAllNotifications } from '../Services/Notifications';
 import { NotificationContext } from '../Contexts/Notifications';
 import Footer from './../components/Footer';
+import ScrollToTop from '../components/ScrollTop';
 
 const MainLayout = () => {
     const { UserData, setUserData } = useContext(UserContext)
@@ -42,6 +43,7 @@ const MainLayout = () => {
 
     return (
         <div>
+          <ScrollToTop />
             <Navbar />
             <Outlet />
             <Footer />

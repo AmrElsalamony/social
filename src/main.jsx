@@ -7,6 +7,7 @@ import { HeroUIProvider } from "@heroui/react";
 import TokenContextProvider from './Contexts/AuthContext.jsx'
 import UserContextProvider from './Contexts/UserContext.jsx'
 import NotificationContextProvider from './Contexts/Notifications.jsx'
+import { ToastContainer } from 'react-toastify';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HeroUIProvider>
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')).render(
         <UserContextProvider>
           <NotificationContextProvider>
             <App />
+            <ToastContainer />
           </NotificationContextProvider>
 
         </UserContextProvider>

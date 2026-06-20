@@ -48,3 +48,15 @@ export const likeAndUnlike = async ( postId) => {
 
   return data;
 };
+
+
+
+export const bookMarkAndUnBookMark = async ( postId) => {
+  const  data  = await axios.put(`${baseUrl}/posts/${postId}/bookmark`, {  }, {
+    headers: {
+      token: localStorage.getItem("token"),
+    },
+  });
+
+  return data;
+};

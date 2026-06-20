@@ -3,12 +3,9 @@ import formatPostDate from "../../Services/ConvertTime";
 import image from '../../assets/Portrait_Placeholder.png';
 
 
-export default function CommentCard({comment 
-    // ,onReply,onDelete,currentUserId,
-}) {
-    // console.log(comment);
+export default function CommentCard({comment }) {
     
-//   const isOwner = currentUserId === comment?.commentCreator?._id;
+
 
   return (
     
