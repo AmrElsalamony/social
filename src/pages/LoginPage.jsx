@@ -15,8 +15,8 @@ const LoginPage = () => {
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm({
         defaultValues: {
-            email: "amr22@gmail.com",
-            password: "Amr@123456",
+            email: "",
+            password: "",
         },
         resolver: zodResolver(schema)
     })
@@ -36,12 +36,12 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#f0f2f5] py-10 px-4">
-            <div className="w-full max-w-[980px] flex flex-col md:flex-row items-center justify-between gap-12">
+        <div className="min-h-screen flex items-center justify-center bg-[#f0f2f5] py-4 sm:py-10 px-4">
+            <div className="w-full max-w-[980px] flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-12">
                 {/* Left Side - Facebook Brand */}
                 <div className="flex-1 max-w-[500px] text-center">
-                    <h1 className="text-6xl font-bold text-[#1877f2] mb-4">Amr Ahmed</h1>
-                    <p className="text-xl text-gray-700 leading-10">
+                    <h1 className="text-4xl sm:text-6xl font-bold text-[#1877f2] mb-2 sm:mb-6">Amr Ahmed</h1>
+                    <p className="text-sm sm:text-xl text-gray-700 leading-10">
                         Connect with friends and the world around you.
                     </p>
                 </div>

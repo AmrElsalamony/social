@@ -521,7 +521,7 @@ const PostDetailsPage = () => {
             {/* Update Modal */}
             {showUpdateModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 mt-5">
-                    <div className="bg-white w-full max-w-lg rounded-xl p-6">
+                    <div className="bg-white w-full max-w-lg rounded-xl p-6 mx-3">
                         <h2 className="text-xl font-semibold mb-4">Update Post</h2>
                         <textarea
                             value={updatedBody}

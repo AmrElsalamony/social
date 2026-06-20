@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // Reusable function to show toast with custom content
 export const showToast = (content, type = 'default', options = {}) => {
     const defaultOptions = {
+        
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

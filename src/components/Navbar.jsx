@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+
 import {
   AppBar,
   Toolbar,
@@ -29,11 +30,6 @@ import { UserContext } from "../Contexts/UserContext";
 import { AuthContext } from "../Contexts/AuthContext";
 import { NotificationContext } from "../Contexts/Notifications";
 
-// const navItems = [
-//   { icon: <Home />, name: "Home" , path:"/" },
-//   { icon: <Person  />, name: "Profile" ,path:"/profile" },
-
-// ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -68,9 +64,10 @@ const { notificationNumber } = useContext(NotificationContext)
         sx={{
           bgcolor: "white",
           color: "black",
+         
         }}
       >
-        <Toolbar className="flex justify-between">
+        <Toolbar className="flex justify-between items-center h-[70px] sm:h-fit">
 
           {/* LEFT */}
           <div className="flex items-center gap-3">
@@ -93,13 +90,15 @@ const { notificationNumber } = useContext(NotificationContext)
             >
               Amr
             </div>
+
+
            </Link>
 
       
           </div>
 
           {/* CENTER */}
-          <div className="hidden md:flex gap-4">
+          <div className="hidden lg:flex gap-3 ms-[80px]">
 
            
             <Link  to={"/"}>
