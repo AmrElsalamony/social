@@ -47,14 +47,6 @@ function App() {
     }
 
 
-    // {
-    //   path: "", element: <ProtectedRoute />, children: [
-    //     { index: true, element: <FeedPage /> },
-    //     { path: "profile", element: <ProfilePage /> },
-    //     { path: "post-details", element: <PostDetailsPage /> },
-    //     // { path: "*", element: <NotFoundPage /> },
-    //   ]
-    // }
 
 
   ])

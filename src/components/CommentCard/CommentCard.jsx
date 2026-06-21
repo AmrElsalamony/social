@@ -56,10 +56,10 @@ export default function CommentCard({comment }) {
           {/* Time */}
           <span>{formatPostDate(comment.createdAt)}</span>
 
-          {/* Delete (only owner) */}
-          {/* {isOwner && (
+          {/* Delete*/}
+          {/* { (
             <button
-            //   onClick={() => onDelete(comment._id)}
+             onClick={() => onDelete(comment._id)}
               className="ml-auto opacity-0 group-hover:opacity-100 text-red-500 transition"
             >
               <FaTrash />

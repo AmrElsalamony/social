@@ -44,7 +44,7 @@ const PostDetailsPage = () => {
     const [threeDots, setThreeDots] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
 
-    // Update Modal States
+  
     const [updatedBody, setUpdatedBody] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
@@ -53,14 +53,13 @@ const PostDetailsPage = () => {
     const [isDeleted, setIsDeleted] = useState(false);
     const [isBookMarked, setIsBookMarked] = useState(false);
 
-    // Share States
+    
     const [isShared, setIsShared] = useState(false);
     const [shareLoading, setShareLoading] = useState(false);
     const [sharesCount, setSharesCount] = useState(0);
 
     const isOwner = userData?._id === post?.user?._id;
 
-    /* ==================== BOOKMARK ==================== */
     async function bookMarkFunction() {
         try {
             const { data } = await bookMarkAndUnBookMark(id);
@@ -78,7 +77,6 @@ const PostDetailsPage = () => {
         }
     }
 
-    /* ==================== LIKE - Fast + Persists on Reload ==================== */
     async function likeFunction() {
         const previousLiked = isLiked;
         const previousCount = likesCount;
@@ -86,23 +84,19 @@ const PostDetailsPage = () => {
         try {
             setLikesLoading(true);
 
-            // Optimistic update
             setIsLiked(!previousLiked);
             setLikesCount(prev => previousLiked ? Math.max(prev - 1, 0) : prev + 1);
 
             const { data } = await likeAndUnlike(id);
             const liked = data.data.liked;
 
-            // Sync with server
             setIsLiked(liked);
             setLikesCount(liked ? previousCount + 1 : Math.max(previousCount - 1, 0));
 
-            // CRITICAL FIX: Refresh likes list after like/unlike
             await getPostLikes();
 
         } catch (error) {
             console.error("Like error:", error);
-            // Revert on error
             setIsLiked(previousLiked);
             setLikesCount(previousCount);
             showToast('Failed to like post', 'error');
@@ -111,9 +105,7 @@ const PostDetailsPage = () => {
         }
     }
 
-    /* ==================== SHARE ==================== */
     async function handleShare() {
-        // Prevent sharing if already shared or loading
         if (isShared || shareLoading) {
             if (isShared) {
                 showToast('You have already shared this post!', 'info');
@@ -131,7 +123,6 @@ const PostDetailsPage = () => {
                 setSharesCount(prev => prev + 1);
                 showToast('Post shared successfully!', 'success');
 
-                // Refresh post data to get updated shares
                 await getPost();
             } else {
                 showToast('Failed to share post', 'error');
@@ -144,7 +135,7 @@ const PostDetailsPage = () => {
         }
     }
 
-    // ==================== UPDATE POST ====================
+
     async function handleUpdate() {
         const formData = new FormData();
         formData.append("body", updatedBody);
@@ -255,7 +246,6 @@ const PostDetailsPage = () => {
             const userLiked = post.likes.includes(userData._id);
             setIsLiked(userLiked);
         }
-        // Update share status when post or user changes
         if (post?.shares && userData?._id) {
             const userHasShared = post.shares.includes(userData._id);
             setIsShared(userHasShared);
@@ -454,7 +444,7 @@ const PostDetailsPage = () => {
                                 <FaRegCommentAlt /> Comment
                             </button>
 
-                            {/* Share Button - Disabled if already shared */}
+                            {/* Share Button */}
                             <button
                                 onClick={handleShare}
                                 disabled={isShared || shareLoading}

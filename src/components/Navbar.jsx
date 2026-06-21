@@ -56,7 +56,7 @@ const { notificationNumber } = useContext(NotificationContext)
   return (
     <>
     
-{notificationMenu?<NotificationsMenu/> : ""}
+{notificationMenu?<NotificationsMenu toggle={toggle} /> : ""}
     
       <AppBar
         position="sticky"

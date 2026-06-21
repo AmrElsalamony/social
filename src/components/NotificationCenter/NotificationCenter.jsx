@@ -12,7 +12,7 @@ import formatPostDate from "../../Services/ConvertTime";
 import getUnreadNotifications, { getAllNotifications, makeAllNotificationRead, makeOneNotificationRead } from "../../Services/Notifications";
 import { Link } from "react-router-dom";
 import NotificationLoadingCard from "../NotificationLoading/NotificationLoading";
-export default function NotificationsMenu() {
+export default function NotificationsMenu({toggle}) {
 
     const { notificationNumber, setNotificationNumber, allNotifications, setAllNotifications } = useContext(NotificationContext);
 
@@ -120,7 +120,9 @@ export default function NotificationsMenu() {
                    no.entityType === "post" ?  
                    <Link onClick={
 
-                        () => { no?.isRead === false ? readNotification(no?._id) : "" }
+                        () => { no?.isRead === false ? readNotification(no?._id) : "" },
+                        toggle
+                        
 
 
 

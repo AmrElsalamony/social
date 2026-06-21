@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = "https://route-posts.routemisr.com";
 
-// Get comments
+
 export const getComments = async (postId) => {
   const { data } = await axios.get(`${baseUrl}/posts/${postId}/comments`, {
     headers: {

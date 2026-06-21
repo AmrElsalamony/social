@@ -1,11 +1,29 @@
-import React from 'react';
+export default function NotFound() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-gray-50">
+      <h1 className="text-8xl font-extrabold text-blue-600">404</h1>
 
-const NotFoundPage = () => {
-    return (
-        <div>
-            <h1>Not Found Page</h1>
-        </div>
-    );
+      <h2 className="mt-6 text-3xl font-bold text-gray-800">
+        Oops! Page Not Found
+      </h2>
+
+      <p className="mt-5 max-w-md text-gray-500">
+        The page you are looking for doesn't exist or has been moved.
+        Let's get you back to somewhere useful.
+      </p>
+
+      {/* <img
+        src="/404.svg"
+        alt="Not Found"
+        className="w-72 my-8"
+      /> */}
+
+      <button
+        onClick={() => window.history.back()}
+        className="px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition mt-8"
+      >
+        Go Back
+      </button>
+    </div>
+  );
 }
-
-export default NotFoundPage;

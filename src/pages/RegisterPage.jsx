@@ -5,6 +5,10 @@ import { schema } from "../Schema/RegisterSchema";
 import { RegisterFunction } from "../Services/AuthServices";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import image from "../assets/start.png"
+
+
+
 
 const RegisterPage = () => {
     const navigate = useNavigate()
@@ -12,6 +16,7 @@ const RegisterPage = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [apiErrorMsg, setApiErrorMsg] = useState("");
     const [apiSuccessMsg, setApiSuccessMsg] = useState("");
+
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm({
         defaultValues: {
@@ -21,9 +26,13 @@ const RegisterPage = () => {
             rePassword: "",
             dateOfBirth: "",
             gender: "",
-        },
-        resolver: zodResolver(schema)
+        }
+        , resolver: zodResolver(schema)
     })
+
+
+
+
 
     async function handleRegister(formData) {
         setIsLoading(true)
@@ -37,183 +46,79 @@ const RegisterPage = () => {
         } else {
             setApiSuccessMsg("")
             setApiErrorMsg("Account is already exists !")
+
+
         }
         setIsLoading(false)
+
+        // console.log(response);
+
+
+
+
     }
 
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-[#f0f2f5] py-5 px-4">
-            <div className="w-full max-w-[980px] flex flex-col md:flex-row items-center justify-between ">
-             <div className="flex-1 max-w-[500px] text-center">
-                    <h1 className="text-4xl sm:text-6xl font-bold text-[#1877f2] mb-2 sm:mb-6">Amr Ahmed</h1>
-                    <p className="text-sm sm:text-xl text-gray-700 leading-10">
-                        Connect with friends and the world around you.
-                    </p>
-                </div>
 
-                {/* Right Side - Register Card */}
-                <div className="flex-1 max-w-[400px] w-full">
-                    <div className="bg-white rounded-lg shadow-[0_2px_4px_rgba(0,0,0,0.1),0_8px_16px_rgba(0,0,0,0.1)] p-5">
+    return <>
+        <div className="container mx-auto  ">
+            <div className="block lg:grid lg:grid-cols-5 lg:gap-4 ">
+                <div className="col-span-3 hidden   lg:flex justify-center items-center text-center">
+                    <div>
+                        <h1 className="text-5xl text-blue-600 font-bold mb-4">Register now !</h1>
+                        <p className="text-gray-600">Connect with friends and the world around you.</p>
+                        <img src={image} className="w-[450px]" alt="" />
+                    </div>
+                </div>
+                <div className="col-span-2">
+                    <div className="py-6 mt-3 mb-6 max-w-2xl mx-2 md:mx-auto shadow-2xl px-4 rounded-xl  ">
                         <form onSubmit={handleSubmit(handleRegister)}>
-                            <div className="space-y-3">
-                                {/* Name Field */}
+                            <div className="flex flex-col gap-4">
+                                <div className="block lg:hidden text-center">
+                                    <h1 className="text-3xl text-blue-600 font-bold mb-2">Register now !</h1>
+                                </div>
+                                {/* <h1 className="text-2xl font-bold text-shadow-lg text-center">Register Form</h1> */}
+                                {/* this is name field start*/}
                                 <TextField
-                                    placeholder="Full Name"
-                                    type="text"
                                     error={errors.name?.message ? true : false}
-                                    helperText={errors.name?.message || ""}
+                                    helperText={`${errors.name?.message || ""}`}
+
+                                    label="Name"
+                                    type="name"
                                     {...register("name")}
                                     variant="outlined"
                                     fullWidth
-                                    size="medium"
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
-                                            borderRadius: "6px",
-                                            backgroundColor: "#fff",
-                                            "& fieldset": {
-                                                borderColor: "#dddfe2",
-                                            },
-                                            "&:hover fieldset": {
-                                                borderColor: "#1b74e4",
-                                            },
-                                            "&.Mui-focused fieldset": {
-                                                borderColor: "#1877f2",
-                                                borderWidth: "2px",
-                                            },
-                                        },
-                                        "& .MuiInputLabel-root": {
-                                            display: "none",
-                                        },
-                                        "& .MuiFormHelperText-root": {
-                                            marginLeft: 0,
-                                            marginTop: "4px",
-                                            fontSize: "12px",
-                                            color: "#f02849",
+                                            borderRadius: "16px",
                                         },
                                     }}
                                 />
+                            
 
-                                {/* Email Field */}
                                 <TextField
-                                    placeholder="Email address"
+                                    label="Email"
                                     type="email"
                                     error={errors.email?.message ? true : false}
-                                    helperText={errors.email?.message || ""}
+                                    helperText={`${errors.email?.message || ""}`}
                                     {...register("email")}
                                     variant="outlined"
                                     fullWidth
-                                    size="medium"
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
-                                            borderRadius: "6px",
-                                            backgroundColor: "#fff",
-                                            "& fieldset": {
-                                                borderColor: "#dddfe2",
-                                            },
-                                            "&:hover fieldset": {
-                                                borderColor: "#1b74e4",
-                                            },
-                                            "&.Mui-focused fieldset": {
-                                                borderColor: "#1877f2",
-                                                borderWidth: "2px",
-                                            },
-                                        },
-                                        "& .MuiInputLabel-root": {
-                                            display: "none",
-                                        },
-                                        "& .MuiFormHelperText-root": {
-                                            marginLeft: 0,
-                                            marginTop: "4px",
-                                            fontSize: "12px",
-                                            color: "#f02849",
+                                            borderRadius: "16px",
                                         },
                                     }}
                                 />
 
-                                {/* Password Field */}
                                 <TextField
-                                    placeholder="New Password"
-                                    type="password"
-                                    error={errors.password?.message ? true : false}
-                                    helperText={errors.password?.message || ""}
-                                    {...register("password")}
-                                    variant="outlined"
-                                    fullWidth
-                                    size="medium"
-                                    sx={{
-                                        "& .MuiOutlinedInput-root": {
-                                            borderRadius: "6px",
-                                            backgroundColor: "#fff",
-                                            "& fieldset": {
-                                                borderColor: "#dddfe2",
-                                            },
-                                            "&:hover fieldset": {
-                                                borderColor: "#1b74e4",
-                                            },
-                                            "&.Mui-focused fieldset": {
-                                                borderColor: "#1877f2",
-                                                borderWidth: "2px",
-                                            },
-                                        },
-                                        "& .MuiInputLabel-root": {
-                                            display: "none",
-                                        },
-                                        "& .MuiFormHelperText-root": {
-                                            marginLeft: 0,
-                                            marginTop: "4px",
-                                            fontSize: "12px",
-                                            color: "#f02849",
-                                        },
-                                    }}
-                                />
 
-                                {/* Re-Password Field */}
-                                <TextField
-                                    placeholder="Confirm Password"
-                                    type="password"
-                                    error={errors.rePassword?.message ? true : false}
-                                    helperText={errors.rePassword?.message || ""}
-                                    {...register("rePassword")}
-                                    variant="outlined"
-                                    fullWidth
-                                    size="medium"
-                                    sx={{
-                                        "& .MuiOutlinedInput-root": {
-                                            borderRadius: "6px",
-                                            backgroundColor: "#fff",
-                                            "& fieldset": {
-                                                borderColor: "#dddfe2",
-                                            },
-                                            "&:hover fieldset": {
-                                                borderColor: "#1b74e4",
-                                            },
-                                            "&.Mui-focused fieldset": {
-                                                borderColor: "#1877f2",
-                                                borderWidth: "2px",
-                                            },
-                                        },
-                                        "& .MuiInputLabel-root": {
-                                            display: "none",
-                                        },
-                                        "& .MuiFormHelperText-root": {
-                                            marginLeft: 0,
-                                            marginTop: "4px",
-                                            fontSize: "12px",
-                                            color: "#f02849",
-                                        },
-                                    }}
-                                />
-
-                                {/* Date of Birth */}
-                                <TextField
                                     type="date"
                                     error={errors.dateOfBirth?.message ? true : false}
-                                    helperText={errors.dateOfBirth?.message || ""}
+                                    helperText={`${errors.dateOfBirth?.message || ""}`}
                                     {...register("dateOfBirth")}
-                                    label="Date of Birth"
+                                    label="dateOfBirth"
                                     variant="outlined"
                                     fullWidth
-                                    size="medium"
                                     slotProps={{
                                         inputLabel: {
                                             shrink: true,
@@ -221,147 +126,93 @@ const RegisterPage = () => {
                                     }}
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
-                                            borderRadius: "6px",
-                                            backgroundColor: "#fff",
-                                            "& fieldset": {
-                                                borderColor: "#dddfe2",
-                                            },
-                                            "&:hover fieldset": {
-                                                borderColor: "#1b74e4",
-                                            },
-                                            "&.Mui-focused fieldset": {
-                                                borderColor: "#1877f2",
-                                                borderWidth: "2px",
-                                            },
-                                        },
-                                        "& .MuiInputLabel-root": {
-                                            fontSize: "14px",
-                                            color: "#606770",
-                                        },
-                                        "& .MuiFormHelperText-root": {
-                                            marginLeft: 0,
-                                            marginTop: "4px",
-                                            fontSize: "12px",
-                                            color: "#f02849",
+                                            borderRadius: "16px",
                                         },
                                     }}
                                 />
 
-                                {/* Gender Dropdown */}
+
+
                                 <Controller
                                     name="gender"
+
                                     control={control}
-                                    rules={{ required: "Gender is required" }}
+                                    rules={{ required: "gender is required" }}
                                     render={({ field }) => (
-                                        <FormControl 
-                                            fullWidth 
-                                            error={!!errors.gender}
-                                            size="medium"
-                                            sx={{
-                                                "& .MuiOutlinedInput-root": {
-                                                    borderRadius: "6px",
-                                                    backgroundColor: "#fff",
-                                                    "& fieldset": {
-                                                        borderColor: "#dddfe2",
-                                                    },
-                                                    "&:hover fieldset": {
-                                                        borderColor: "#1b74e4",
-                                                    },
-                                                    "&.Mui-focused fieldset": {
-                                                        borderColor: "#1877f2",
-                                                        borderWidth: "2px",
-                                                    },
-                                                },
-                                                "& .MuiInputLabel-root": {
-                                                    fontSize: "14px",
-                                                    color: "#606770",
-                                                },
-                                            }}
-                                        >
+                                        <FormControl fullWidth error={!!errors.gender} sx={{
+                                            "& .MuiOutlinedInput-root": {
+                                                borderRadius: "16px",
+                                            },
+                                        }}>
                                             <InputLabel>Gender</InputLabel>
+
                                             <Select {...field} label="Gender">
                                                 <MenuItem value="male">Male</MenuItem>
                                                 <MenuItem value="female">Female</MenuItem>
                                             </Select>
-                                            {errors.gender?.message && (
-                                                <p style={{ 
-                                                    color: "#f02849", 
-                                                    fontSize: "12px", 
-                                                    marginTop: "4px", 
-                                                    marginLeft: "0px" 
-                                                }}>
-                                                    {errors.gender?.message}
-                                                </p>
-                                            )}
+
+                                            <p style={{ color: "#d32f2f", fontSize: "12px", marginTop: "4px", marginLeft: "12px" }}>
+                                                {errors.gender?.message}
+                                            </p>
                                         </FormControl>
                                     )}
                                 />
 
-                                {/* Error Message */}
-                                {apiErrorMsg && (
-                                    <div className="text-sm text-[#f02849] text-center bg-[#ffe8e8] p-2 rounded">
-                                        {apiErrorMsg}
-                                    </div>
-                                )}
 
-                                {/* Success Message */}
-                                {apiSuccessMsg && (
-                                    <div className="text-sm text-green-600 text-center bg-green-50 p-2 rounded">
-                                        {apiSuccessMsg}
-                                    </div>
-                                )}
-
-                                {/* Register Button */}
-                                <Button
-                                    loading={isLoading}
-                                    loadingPosition="start"
-                                    variant="contained"
+                                <TextField
+                                    label="Password"
+                                    type="password"
+                                    error={errors.password?.message ? true : false}
+                                    helperText={`${errors.password?.message || ""}`}
+                                    {...register("password")}
+                                    variant="outlined"
                                     fullWidth
-                                    type="submit"
                                     sx={{
-                                        borderRadius: "6px",
-                                        paddingTop: "10px",
-                                        paddingBottom: "10px",
-                                        backgroundColor: "#42b72a",
-                                        textTransform: "none",
-                                        fontSize: "20px",
-                                        fontWeight: "700",
-                                        "&:hover": {
-                                            backgroundColor: "#36a420",
+                                        "& .MuiOutlinedInput-root": {
+                                            borderRadius: "16px",
+
                                         },
-                                        "&:disabled": {
-                                            backgroundColor: "#77a7e8",
+
+                                    }}
+                                />
+
+
+
+                                <TextField
+                                    label="Re-password"
+                                    type="password"
+                                    error={errors.rePassword?.message ? true : false}
+                                    helperText={`${errors.rePassword?.message || ""}`}
+                                    {...register("rePassword")}
+                                    variant="outlined"
+                                    fullWidth
+                                    sx={{
+                                        "& .MuiOutlinedInput-root": {
+                                            borderRadius: "16px",
                                         },
                                     }}
-                                >
-                                    Sign Up
-                                </Button>
+                                />
+                                <Button loading={isLoading} loadingPosition="start" variant="outlined" sx={{
 
-                                {/* Divider */}
-                                <div className="relative">
-                                    <div className="absolute inset-0 flex items-center">
-                                        <div className="w-full border-t border-[#dadde1]"></div>
-                                    </div>
-                                </div>
+                                    borderRadius: "16px",
+                                    paddingTop: "10px",
+                                    paddingBottom: "10px",
 
-                                {/* Login Link */}
-                                <div className="text-center pt-2 pb-3">
-                                    <p className="text-sm text-gray-600">
-                                        Already have an account?{" "}
-                                        <Link to="/login" className="text-[#1877f2] font-semibold hover:underline">
-                                            Log In
-                                        </Link>
-                                    </p>
-                                </div>
+                                }} type="submit">Register</Button>
+                                {apiErrorMsg && <p className="p-2 bg-red-200 text-red-800 text-sm text-center rounded-md">{apiErrorMsg}</p>}
+                                {apiSuccessMsg && <p className="p-2 bg-green-200 text-green-800 text-sm text-center rounded-md">{apiSuccessMsg}</p>}
+                                <p className="text-center">I already have an account ? <Link to={"/login"} className="text-blue-500">login now</Link></p>
+
                             </div>
-                        </form>
-                    </div>
-
-              
+                        </form >
+                    </div >
                 </div>
+
+
             </div>
         </div>
-    )
+
+    </>
 }
 
 export default RegisterPage;

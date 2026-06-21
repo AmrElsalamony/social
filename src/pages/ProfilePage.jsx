@@ -183,11 +183,7 @@ const ProfilePage = () => {
 
 }
 
-          {/* Buttons */}
-
-
-          {/* <hr className='my-4' /> */}
-
+        
 
 
 

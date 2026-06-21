@@ -13,7 +13,7 @@ export default function SuggestionsPage() {
 
   const location = useLocation();
 
-  // GET SUGGESTIONS
+ 
   async function getData() {
     try {
       setLoading(true);
@@ -32,7 +32,7 @@ export default function SuggestionsPage() {
     getData();
   }, []);
 
-  // FOLLOW / UNFOLLOW
+
   async function follow(id) {
     try {
       setLoadingUserId(id);
@@ -45,8 +45,7 @@ export default function SuggestionsPage() {
           : [...prev, id]
       );
 
-      // optional refresh
-      // getData();
+    
 
     } catch (error) {
       console.log(error);
@@ -58,7 +57,7 @@ export default function SuggestionsPage() {
   return (
     <div className="w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto px-2 sm:px-0">
 
-      {/* HEADER */}
+   
       {location.pathname === "/" ? (
         <Link to={"/suggestion"}>
           <button className="text-sm flex items-center justify-center font-semibold mb-3 px-2 py-2 bg-blue-500 w-full text-white rounded-2xl">
@@ -72,7 +71,7 @@ export default function SuggestionsPage() {
         </h1>
       )}
 
-      {/* LIST */}
+   
       <div className="space-y-3">
 
         {loading ? (
@@ -88,7 +87,7 @@ export default function SuggestionsPage() {
               className="flex items-center justify-between bg-white p-2 rounded-2xl shadow-sm border hover:shadow-md transition w-full"
             >
 
-              {/* LEFT */}
+         
               <Link to={`/profile/${user?._id}/posts`}>
                 <div className="flex items-center gap-2 min-w-0">
 
@@ -117,7 +116,7 @@ export default function SuggestionsPage() {
                 </div>
               </Link>
 
-              {/* BUTTON */}
+             
               <button
                 onClick={() => follow(user._id)}
                 disabled={loadingUserId === user._id}

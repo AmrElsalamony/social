@@ -24,7 +24,7 @@ const BookMarkedPosts = () => {
     return <>
         {isLoading ? <div className="p-4"><LoadingCard /></div> : <>
             {posts.length != 0 ? <div className='grid gap-3 mt-5 mx-2'>
-                {[...posts].reverse().map((post) => <PostCard postData={post} getBookMarkedPosts={getPosts} />)}
+                {[...posts].reverse().map((post) => <PostCard key={post._id} postData={post} getBookMarkedPosts={getPosts} />)}
             </div> : <div className="bg-white rounded-2xl mx-5 mt-10 shadow-sm border border-gray-100 px-6 py-10 text-center">
                 <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
                     <i className="fa fa-x text-gray-500 text-xl"></i>

@@ -12,7 +12,6 @@ export default function CreatePost({ getData }) {
 
   const [text, setText] = useState("");
 
-  // ✅ مهم: فصل file عن preview
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -67,7 +66,7 @@ export default function CreatePost({ getData }) {
       {/* USER */}
       <div className="flex items-center gap-3 mb-2">
 
-        <Link to={"/profile"}>
+        <Link to={`/profile/${user._id}/posts`}>
           <Avatar
             src={user?.photo}
             sx={{ width: 50, height: 50 }}
@@ -76,7 +75,7 @@ export default function CreatePost({ getData }) {
         </Link>
 
         <div>
-          <Link to={"/profile"}>
+          <Link to={`/profile/${user._id}/posts`}>
             <h4 className="font-semibold text-sm leading-tight">
               {user?.name}
             </h4>

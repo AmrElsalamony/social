@@ -34,7 +34,7 @@ export async function getAllNotifications() {
         {
           params: {
             page,
-            limit: 10, // أكبر limit يسمح به الـ API
+            limit: 10, 
           },
 
           headers: {
