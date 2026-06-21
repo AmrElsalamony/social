@@ -1,33 +1,35 @@
 import { FaRegThumbsUp, FaReply, FaTrash } from "react-icons/fa";
 import formatPostDate from "../../Services/ConvertTime";
 import image from '../../assets/Portrait_Placeholder.png';
+import { Link } from 'react-router-dom';
 
 
-export default function CommentCard({comment }) {
-    
+export default function CommentCard({ comment }) {
+
 
 
   return (
-    
+
     <div className="w-full shadow-sm p-2 rounded-xl border flex mb-4  group">
 
       {/* Avatar */}
-      <img
-        src={comment.commentCreator.photo? comment.commentCreator.photo :image}
-        alt=""
-        className="w-9 me-1 h-9 rounded-full object-cover border"
-      />
-
+      <Link to={`/profile/${comment.commentCreator._id}/posts`}>
+        <img
+          src={comment.commentCreator.photo ? comment.commentCreator.photo : image}
+          alt=""
+          className="w-9 me-1 h-9 rounded-full object-cover border"
+        />
+      </Link>
       {/* Content */}
       <div className="flex-1">
-
         <div className="bg-gray-100 rounded-2xl px-3 py-2 relative">
 
           {/* Name */}
-          <p className="font-semibold text-sm text-gray-900">
-            {comment.commentCreator.name}
-          </p>
-
+          <Link to={`/profile/${comment.commentCreator._id}/posts`}>
+            <p className="font-semibold text-sm text-gray-900">
+              {comment.commentCreator.name}
+            </p>
+          </Link>
           {/* Text */}
           <p className="text-sm text-gray-700">
             {comment.content}

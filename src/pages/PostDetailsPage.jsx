@@ -44,7 +44,7 @@ const PostDetailsPage = () => {
     const [threeDots, setThreeDots] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
 
-  
+
     const [updatedBody, setUpdatedBody] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
     const [previewImage, setPreviewImage] = useState(null);
@@ -53,7 +53,7 @@ const PostDetailsPage = () => {
     const [isDeleted, setIsDeleted] = useState(false);
     const [isBookMarked, setIsBookMarked] = useState(false);
 
-    
+
     const [isShared, setIsShared] = useState(false);
     const [shareLoading, setShareLoading] = useState(false);
     const [sharesCount, setSharesCount] = useState(0);
@@ -258,19 +258,19 @@ const PostDetailsPage = () => {
     return (
         <>
             {isDeleted ? (
-                <div className="bg-white rounded-2xl mx-5  shadow-sm border border-gray-100 px-6 py-10 text-center">
+                <div className="bg-white mt-5  rounded-2xl mx-5  shadow-sm border border-gray-100 px-6 py-20 text-center">
                     <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
                         <i className="fa-solid fa-trash text-gray-500 text-xl"></i>
                     </div>
                     <h3 className="text-lg font-semibold text-gray-800">Post Deleted</h3>
-                    <p className="text-sm text-gray-500 mt-2">This post has been removed successfully.</p>
+                    <p className="text-sm text-gray-500 mt-2">Sorry, This post has been Deleted.</p>
                     <Link to="/" className="inline-flex items-center gap-2 mt-5 px-5 py-2.5 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
                         <i className="fa-solid fa-house"></i> Go to Feed
                     </Link>
                 </div>
             ) : isLoading ? (
                 <LoadingCard />
-            ) : (
+            ) : (<>
                 <div className="container mx-auto my-6 px-2">
                     <div className="w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
 
@@ -350,7 +350,7 @@ const PostDetailsPage = () => {
                         </div>
 
                         {post?.sharedPost &&
-                            <Link  to={`/post-details/${originalPost?._id}`}>
+                            <Link to={`/post-details/${originalPost?._id}`}>
                                 <div className="px-4">
                                     <div className="text-gray-500 text-sm mb-2">
                                         {sharer?.name} shared a post
@@ -506,94 +506,97 @@ const PostDetailsPage = () => {
                         </div>
                     </div>
                 </div>
-            )}
 
-            {/* Update Modal */}
-            {showUpdateModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 mt-5">
-                    <div className="bg-white w-full max-w-lg rounded-xl p-6 mx-3">
-                        <h2 className="text-xl font-semibold mb-4">Update Post</h2>
-                        <textarea
-                            value={updatedBody}
-                            onChange={(e) => setUpdatedBody(e.target.value)}
-                            className="w-full border border-gray-300 p-3 rounded-xl min-h-[60px] focus:outline-none focus:border-blue-500"
-                        />
-
-                        <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Change Image</label>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={(e) => {
-                                    const file = e.target.files[0];
-                                    if (file) {
-                                        setSelectedImage(file);
-                                        setPreviewImage(URL.createObjectURL(file));
-                                        setRemoveImage(false);
-                                    }
-                                }}
-                                className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                {/* Update Modal */}
+                {showUpdateModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 mt-5">
+                        <div className="bg-white w-full max-w-lg rounded-xl p-6 mx-3">
+                            <h2 className="text-xl font-semibold mb-4">Update Post</h2>
+                            <textarea
+                                value={updatedBody}
+                                onChange={(e) => setUpdatedBody(e.target.value)}
+                                className="w-full border border-gray-300 p-3 rounded-xl min-h-[60px] focus:outline-none focus:border-blue-500"
                             />
-                        </div>
 
-                        <div className="mt-4">
-                            {previewImage && (
-                                <div className="relative">
-                                    <img src={previewImage} className="rounded-xl w-[150px] h-[150px] mx-auto" alt="preview" />
-                                    <button onClick={() => { setSelectedImage(null); setPreviewImage(null); }} className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm hover:bg-red-600">Remove</button>
-                                </div>
-                            )}
+                            <div className="mt-4">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Change Image</label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            setSelectedImage(file);
+                                            setPreviewImage(URL.createObjectURL(file));
+                                            setRemoveImage(false);
+                                        }
+                                    }}
+                                    className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                />
+                            </div>
 
-                            {!previewImage && post.image && !removeImage && (
-                                <div className="relative">
-                                    <img src={post.image} className="w-[150px] h-[150px] mx-auto rounded-xl" alt="current" />
-                                    <button onClick={() => setRemoveImage(true)} className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm hover:bg-red-600">Remove</button>
-                                </div>
-                            )}
+                            <div className="mt-4">
+                                {previewImage && (
+                                    <div className="relative">
+                                        <img src={previewImage} className="rounded-xl w-[150px] h-[150px] mx-auto" alt="preview" />
+                                        <button onClick={() => { setSelectedImage(null); setPreviewImage(null); }} className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm hover:bg-red-600">Remove</button>
+                                    </div>
+                                )}
 
-                            {removeImage && !previewImage && <p className="text-red-500 text-sm mt-2">Image will be removed</p>}
-                        </div>
+                                {!previewImage && post.image && !removeImage && (
+                                    <div className="relative">
+                                        <img src={post.image} className="w-[150px] h-[150px] mx-auto rounded-xl" alt="current" />
+                                        <button onClick={() => setRemoveImage(true)} className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm hover:bg-red-600">Remove</button>
+                                    </div>
+                                )}
 
-                        <div className="flex justify-end gap-3 mt-6">
-                            <button onClick={closeUpdateModal} className="px-5 py-2 text-gray-600 hover:bg-gray-100 rounded-xl">Cancel</button>
-                            <button onClick={handleUpdate} className="px-5 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700">Update Post</button>
+                                {removeImage && !previewImage && <p className="text-red-500 text-sm mt-2">Image will be removed</p>}
+                            </div>
+
+                            <div className="flex justify-end gap-3 mt-6">
+                                <button onClick={closeUpdateModal} className="px-5 py-2 text-gray-600 hover:bg-gray-100 rounded-xl">Cancel</button>
+                                <button onClick={handleUpdate} className="px-5 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700">Update Post</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
 
-            {/* Likes Modal */}
-            {showLikes && (
-                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 ">
-                    <div className="bg-white w-[350px] max-h-[400px] rounded-xl shadow-lg overflow-hidden">
-                        <div className="flex items-center justify-between p-3 border-b font-semibold">
-                            <p>Likes</p>
-                            <button onClick={() => setShowLikes(false)} className="w-fit bg-red-200 p-2 text-sm text-red-700 hover:bg-red-300 transition-all duration-300 rounded-lg">Close</button>
-                        </div>
+                {/* Likes Modal */}
+                {showLikes && (
+                    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 ">
+                        <div className="bg-white w-[350px] max-h-[400px] rounded-xl shadow-lg overflow-hidden">
+                            <div className="flex items-center justify-between p-3 border-b font-semibold">
+                                <p>Likes</p>
+                                <button onClick={() => setShowLikes(false)} className="w-fit bg-red-200 p-2 text-sm text-red-700 hover:bg-red-300 transition-all duration-300 rounded-lg">Close</button>
+                            </div>
 
-                        <div className="overflow-y-auto max-h-[350px] pb-6">
-                            {likes.length === 0 ? (
-                                <p className="p-4 text-gray-500 text-sm">No likes yet</p>
-                            ) : (
-                                likes.map((item) => (
-                                    <Link key={item._id} to={`/profile/${item._id}/posts`}>
-                                        <div className="flex justify-between border-b items-center gap-3 p-3 hover:bg-gray-50">
-                                            <div className="flex items-center gap-3">
-                                                <img src={item.photo} className="w-10 h-10 rounded-full object-cover" alt="" />
-                                                <div>
-                                                    <h4 className="text-sm font-semibold">{item.name}</h4>
-                                                    <p className="text-xs text-gray-500">@{item.username}</p>
+                            <div className="overflow-y-auto max-h-[350px] pb-6">
+                                {likes.length === 0 ? (
+                                    <p className="p-4 text-gray-500 text-sm">No likes yet</p>
+                                ) : (
+                                    likes.map((item) => (
+                                        <Link key={item._id} to={`/profile/${item._id}/posts`}>
+                                            <div className="flex justify-between border-b items-center gap-3 p-3 hover:bg-gray-50">
+                                                <div className="flex items-center gap-3">
+                                                    <img src={item.photo} className="w-10 h-10 rounded-full object-cover" alt="" />
+                                                    <div>
+                                                        <h4 className="text-sm font-semibold">{item.name}</h4>
+                                                        <p className="text-xs text-gray-500">@{item.username}</p>
+                                                    </div>
                                                 </div>
+                                                <div className="w-5 h-5 rounded-full bg-blue-500 text-white text-xs flex items-center justify-center">👍</div>
                                             </div>
-                                            <div className="w-5 h-5 rounded-full bg-blue-500 text-white text-xs flex items-center justify-center">👍</div>
-                                        </div>
-                                    </Link>
-                                ))
-                            )}
+                                        </Link>
+                                    ))
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
+            </>
+
             )}
+
         </>
     );
 };

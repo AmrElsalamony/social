@@ -12,7 +12,7 @@ import formatPostDate from "../../Services/ConvertTime";
 import getUnreadNotifications, { getAllNotifications, makeAllNotificationRead, makeOneNotificationRead } from "../../Services/Notifications";
 import { Link } from "react-router-dom";
 import NotificationLoadingCard from "../NotificationLoading/NotificationLoading";
-export default function NotificationsMenu({toggle}) {
+export default function NotificationsMenu({ toggle }) {
 
     const { notificationNumber, setNotificationNumber, allNotifications, setAllNotifications } = useContext(NotificationContext);
 
@@ -25,7 +25,7 @@ export default function NotificationsMenu({toggle}) {
 
             const res = await getAllNotifications();
             console.log(res);
-            
+
 
             if (res.success) {
                 setAllNotifications(res.notifications);
@@ -77,7 +77,7 @@ export default function NotificationsMenu({toggle}) {
         }
     }
     return (
-        <div className="fixed top-[70px] right-[10px] z-10 w-[380px] max-w-full bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden h-[500px] ">
+        <div className="fixed top-[70px] h-[500px] flex flex-col overflow-hidden right-[10px] z-10 w-[380px] max-w-full bg-white rounded-2xl shadow-2xl border border-gray-200  ">
 
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b">
@@ -111,26 +111,27 @@ export default function NotificationsMenu({toggle}) {
 
             {/* Notifications List */}
 
-            <div className="max-h-[500px] h-fit overflow-y-auto">
+                <div className="flex-1 overflow-y-auto min-h-0 pb-6">
 
-                {/* Notification */}
+                    {/* Notification */}
 
-                {loading === false && allNotifications.length != 0 ? allNotifications.map((no, index) =>
+                    {loading === false && allNotifications.length != 0 ? allNotifications.map((no, index) =>
 
-                   no.entityType === "post" ?  
-                   <Link onClick={
+                        no.entityType === "post" ?
+                            <Link onClick={
 
-                        () => { no?.isRead === false ? readNotification(no?._id) : "" },
-                        toggle
-                        
+                                () => {
+                                    { no?.isRead === false ? readNotification(no?._id) : "" }
+                                    toggle()
+                                }
 
 
 
-                    } key={index} to={`/post-details/${no.entityId}`}>
+                            } key={index} to={`/post-details/${no.entityId}`}>
 
-                        <div
+                                <div
 
-                            className="
+                                    className="
           flex gap-3
           p-4
           hover:bg-gray-50
@@ -138,27 +139,27 @@ export default function NotificationsMenu({toggle}) {
           relative
           cursor-pointer
           "
-                        >
+                                >
 
-                            {/* Avatar */}
+                                    {/* Avatar */}
 
-                            <div className="relative">
+                                    <div className="relative">
 
-                                <img
-                                    src={no.actor.photo}
-                                    alt=""
-                                    className="
+                                        <img
+                                            src={no.actor.photo}
+                                            alt=""
+                                            className="
               w-14
               h-14
               rounded-full
               object-cover
               "
-                                />
+                                        />
 
-                                {/* Type icon */}
+                                        {/* Type icon */}
 
-                                <div
-                                    className="
+                                        <div
+                                            className="
               absolute
               -bottom-1
               -right-1
@@ -167,75 +168,75 @@ export default function NotificationsMenu({toggle}) {
               p-1.5
               rounded-full
               "
-                                >
-                                    <FaUserPlus className="text-xs" />
-                                </div>
+                                        >
+                                            <FaUserPlus className="text-xs" />
+                                        </div>
 
-                            </div>
+                                    </div>
 
-                            {/* Content */}
+                                    {/* Content */}
 
-                            <div className="flex-1">
+                                    <div className="flex-1">
 
-                                <p className="text-sm text-gray-800">
+                                        <p className="text-sm text-gray-800">
 
-                                    <span className="font-semibold">
-                                        {no.actor.name}
-                                    </span>
+                                            <span className="font-semibold">
+                                                {no.actor.name}
+                                            </span>
 
-                                    {" "}
-                                    {(() => {
-                                        // {console.log(no.type)}
-                                        switch (no.type) {
-                                            case "follow_user":
-                                                return "started following you.";
+                                            {" "}
+                                            {(() => {
+                                                // {console.log(no.type)}
+                                                switch (no.type) {
+                                                    case "follow_user":
+                                                        return "started following you.";
 
-                                            case "like_post":
-                                                return "liked your post.";
+                                                    case "like_post":
+                                                        return "liked your post.";
 
-                                            case "comment_post":
-                                                return "commented on your post.";
-                                                case "share_post":
-                                                return "shared your post.";
+                                                    case "comment_post":
+                                                        return "commented on your post.";
+                                                    case "share_post":
+                                                        return "shared your post.";
 
-                                            default:
-                                                return "";
-                                        }
-                                    })()}
-
-
+                                                    default:
+                                                        return "";
+                                                }
+                                            })()}
 
 
 
 
 
 
-                                </p>
-
-                                <p className="text-xs text-blue-600 mt-1">
-                                    {formatPostDate(no.createdAt)}
-                                </p>
-
-                            </div>
-
-                            {/* Mark Read */}
 
 
+                                        </p>
 
-                            {/* unread dot */}
+                                        <p className="text-xs text-blue-600 mt-1">
+                                            {formatPostDate(no.createdAt)}
+                                        </p>
 
-                            {no.isRead ? "" :
+                                    </div>
 
-                                <>
-                                    <button
+                                    {/* Mark Read */}
 
 
 
+                                    {/* unread dot */}
 
-                                        onClick={() => readNotification(no?._id)}
+                                    {no.isRead ? "" :
+
+                                        <>
+                                            <button
 
 
-                                        className="
+
+
+                                                onClick={() => readNotification(no?._id)}
+
+
+                                                className="
                         
             p-2
             rounded-full
@@ -243,26 +244,26 @@ export default function NotificationsMenu({toggle}) {
             text-gray-500
             transition
             "
-                                    >
-                                        <FaCheck />
-                                    </button>
-                                    <div className="absolute right-6 bottom-4 w-3 h-3 rounded-full bg-blue-600" />
-                                </>
-                            }
+                                            >
+                                                <FaCheck />
+                                            </button>
+                                            <div className="absolute right-6 bottom-4 w-3 h-3 rounded-full bg-blue-600" />
+                                        </>
+                                    }
 
-                        </div>
-                    </Link>:
-                    <Link onClick={
+                                </div>
+                            </Link> :
+                            <Link onClick={
 
-                        () => { no?.isRead === false ? readNotification(no?._id) : "" }
+                                () => { no?.isRead === false ? readNotification(no?._id) : "" }
 
 
 
-                    } key={index} to={`/profile/${no.actor._id}/posts`}>
+                            } key={index} to={`/profile/${no.actor._id}/posts`}>
 
-                        <div
+                                <div
 
-                            className="
+                                    className="
           flex gap-3
           p-4
           hover:bg-gray-50
@@ -270,27 +271,27 @@ export default function NotificationsMenu({toggle}) {
           relative
           cursor-pointer
           "
-                        >
+                                >
 
-                            {/* Avatar */}
+                                    {/* Avatar */}
 
-                            <div className="relative">
+                                    <div className="relative">
 
-                                <img
-                                    src={no.actor.photo}
-                                    alt=""
-                                    className="
+                                        <img
+                                            src={no.actor.photo}
+                                            alt=""
+                                            className="
               w-14
               h-14
               rounded-full
               object-cover
               "
-                                />
+                                        />
 
-                                {/* Type icon */}
+                                        {/* Type icon */}
 
-                                <div
-                                    className="
+                                        <div
+                                            className="
               absolute
               -bottom-1
               -right-1
@@ -299,72 +300,72 @@ export default function NotificationsMenu({toggle}) {
               p-1.5
               rounded-full
               "
-                                >
-                                    <FaUserPlus className="text-xs" />
-                                </div>
+                                        >
+                                            <FaUserPlus className="text-xs" />
+                                        </div>
 
-                            </div>
+                                    </div>
 
-                            {/* Content */}
+                                    {/* Content */}
 
-                            <div className="flex-1">
+                                    <div className="flex-1">
 
-                                <p className="text-sm text-gray-800">
+                                        <p className="text-sm text-gray-800">
 
-                                    <span className="font-semibold">
-                                        {no.actor.name}
-                                    </span>
+                                            <span className="font-semibold">
+                                                {no.actor.name}
+                                            </span>
 
-                                    {" "}
-                                    {(() => {
-                                        switch (no.type) {
-                                            case "follow_user":
-                                                return "started following you.";
+                                            {" "}
+                                            {(() => {
+                                                switch (no.type) {
+                                                    case "follow_user":
+                                                        return "started following you.";
 
-                                            case "like_post":
-                                                return "liked your post.";
+                                                    case "like_post":
+                                                        return "liked your post.";
 
-                                            case "comment_post":
-                                                return "commented on your post.";
+                                                    case "comment_post":
+                                                        return "commented on your post.";
 
-                                            default:
-                                                return "";
-                                        }
-                                    })()}
-
-
+                                                    default:
+                                                        return "";
+                                                }
+                                            })()}
 
 
 
 
 
 
-                                </p>
-
-                                <p className="text-xs text-blue-600 mt-1">
-                                    {formatPostDate(no.createdAt)}
-                                </p>
-
-                            </div>
-
-                            {/* Mark Read */}
 
 
+                                        </p>
 
-                            {/* unread dot */}
+                                        <p className="text-xs text-blue-600 mt-1">
+                                            {formatPostDate(no.createdAt)}
+                                        </p>
 
-                            {no.isRead ? "" :
+                                    </div>
 
-                                <>
-                                    <button
+                                    {/* Mark Read */}
 
 
 
+                                    {/* unread dot */}
 
-                                        onClick={() => readNotification(no?._id)}
+                                    {no.isRead ? "" :
+
+                                        <>
+                                            <button
 
 
-                                        className="
+
+
+                                                onClick={() => readNotification(no?._id)}
+
+
+                                                className="
                         
             p-2
             rounded-full
@@ -372,27 +373,27 @@ export default function NotificationsMenu({toggle}) {
             text-gray-500
             transition
             "
-                                    >
-                                        <FaCheck />
-                                    </button>
-                                    <div className="absolute right-6 bottom-4 w-3 h-3 rounded-full bg-blue-600" />
-                                </>
-                            }
+                                            >
+                                                <FaCheck />
+                                            </button>
+                                            <div className="absolute right-6 bottom-4 w-3 h-3 rounded-full bg-blue-600" />
+                                        </>
+                                    }
 
-                        </div>
-                    </Link>
-
-
-                ) : <NotificationLoadingCard />
+                                </div>
+                            </Link>
 
 
-                }
+                    ) : <NotificationLoadingCard />
+
+
+                    }
 
 
 
 
-            </div>
-
+                </div>
+          
         </div>
     );
 }
