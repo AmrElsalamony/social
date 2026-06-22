@@ -81,7 +81,7 @@ const LoginPage = () => {
                                 fullWidth
                                 sx={{
                                     "& .MuiOutlinedInput-root": {
-                                        borderRadius: "16px",
+                                        borderRadius: "5px",
                                     },
                                 }}
                             />
@@ -102,7 +102,7 @@ const LoginPage = () => {
                                 fullWidth
                                 sx={{
                                     "& .MuiOutlinedInput-root": {
-                                        borderRadius: "16px",
+                                        borderRadius: "5px",
 
                                     },
 
@@ -112,7 +112,7 @@ const LoginPage = () => {
 
                             <Button loading={isLoading} loadingPosition="start" variant="outlined" sx={{
 
-                                borderRadius: "16px",
+                                borderRadius: "5px",
                                 paddingTop: "10px",
                                 paddingBottom: "10px",
                             }} type="submit">Login</Button>

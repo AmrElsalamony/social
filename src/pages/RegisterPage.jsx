@@ -6,7 +6,10 @@ import { RegisterFunction } from "../Services/AuthServices";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import image from "../assets/start.png"
-
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 
 
@@ -16,9 +19,9 @@ const RegisterPage = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [apiErrorMsg, setApiErrorMsg] = useState("");
     const [apiSuccessMsg, setApiSuccessMsg] = useState("");
+   
 
-
-    const { register, handleSubmit, formState: { errors }, control, reset } = useForm({
+    const { register, handleSubmit, formState: { errors }, control, reset, watch, setValue } = useForm({
         defaultValues: {
             name: "",
             email: "",
@@ -30,7 +33,9 @@ const RegisterPage = () => {
         , resolver: zodResolver(schema)
     })
 
-
+ const [selectedDate, setSelectedDate] = useState(
+        watch("dateOfBirth") ? dayjs(watch("dateOfBirth")) : null
+    );
 
 
 
@@ -89,7 +94,7 @@ const RegisterPage = () => {
                                     fullWidth
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
-                                            borderRadius: "16px",
+                                            borderRadius: "5px",
                                         },
                                     }}
                                 />
@@ -105,33 +110,59 @@ const RegisterPage = () => {
                                     fullWidth
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
-                                            borderRadius: "16px",
+                                            borderRadius: "5px",
                                         },
                                     }}
                                 />
-                                <div className="">
 
-                                    <div className="relative">
-                                        <input
-                                            type="date"
-                                            {...register("dateOfBirth")}
-                                            className={`w-full px-4 py-4 text-gray-700 bg-white border rounded-2xl focus:outline-none focus:ring-2 text-sm ${errors.dateOfBirth?.message
-                                                    ? "border-red-500 focus:border-red-500 focus:ring-red-200"
-                                                    : "border-[#dddfe2] focus:border-[#1877f2] focus:ring-blue-100"
-                                                }`}
-                                            max={new Date().toISOString().split('T')[0]}
+
+
+
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <div className="">
+                                        <DatePicker
+                                            label="Date of Birth"
+                                            value={selectedDate}
+                                            onChange={(newValue) => {
+                                                const formattedDate = newValue ? newValue.format('YYYY-MM-DD') : '';
+                                                setSelectedDate(newValue);
+                                                setValue("dateOfBirth", formattedDate, {
+                                                    shouldValidate: true,
+                                                    shouldDirty: true
+                                                });
+                                            }}
+                                            maxDate={dayjs()}
+                                            slotProps={{
+                                                textField: {
+                                                    fullWidth: true,
+                                                    error: !!errors.dateOfBirth,
+                                                    helperText: errors.dateOfBirth?.message,
+                                                    sx: {
+                                                        '& .MuiOutlinedInput-root': {
+                                                            borderRadius: '5px !important',
+                                                            backgroundColor: 'white',
+                                                        },
+                                                        '& .MuiOutlinedInput-notchedOutline': {
+                                                            borderRadius: '5px !important',
+                                                            borderColor: errors.dateOfBirth ? '#ef4444' : '#dddfe2',
+                                                        },
+                                                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                                                            borderColor: errors.dateOfBirth ? '#ef4444' : '#1877f2',
+                                                        },
+                                                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                                            borderColor: errors.dateOfBirth ? '#ef4444' : '#1877f2',
+                                                            borderWidth: '2px',
+                                                        },
+                                                        '& .MuiInputBase-root': {
+                                                            borderRadius: '5px !important',
+                                                        }
+                                                    },
+                                                },
+                                            }}
+                                            format="DD/MM/YYYY"
                                         />
-                                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                                            <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                                            </svg>
-                                        </div>
                                     </div>
-                                    {errors.dateOfBirth?.message && (
-                                        <p className="text-red-500 text-xs mt-1">{errors.dateOfBirth.message}</p>
-                                    )}
-                                </div>
-
+                                </LocalizationProvider>
 
 
                                 <Controller
@@ -142,7 +173,7 @@ const RegisterPage = () => {
                                     render={({ field }) => (
                                         <FormControl fullWidth error={!!errors.gender} sx={{
                                             "& .MuiOutlinedInput-root": {
-                                                borderRadius: "16px",
+                                                borderRadius: "5px",
                                             },
                                         }}>
                                             <InputLabel>Gender</InputLabel>
@@ -170,7 +201,7 @@ const RegisterPage = () => {
                                     fullWidth
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
-                                            borderRadius: "16px",
+                                            borderRadius: "5px",
 
                                         },
 
@@ -189,13 +220,13 @@ const RegisterPage = () => {
                                     fullWidth
                                     sx={{
                                         "& .MuiOutlinedInput-root": {
-                                            borderRadius: "16px",
+                                            borderRadius: "5px",
                                         },
                                     }}
                                 />
                                 <Button loading={isLoading} loadingPosition="start" variant="outlined" sx={{
 
-                                    borderRadius: "16px",
+                                    borderRadius: "5px",
                                     paddingTop: "10px",
                                     paddingBottom: "10px",
 
