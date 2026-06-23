@@ -120,7 +120,7 @@ const FeedPage = () => {
             {isLoading ? (
                 <div className="p-4"><LoadingCard /></div>
             ) : (
-                <div className="container mx-auto p-4">
+                <div className="container mx-auto p-2 sm:p-4">
                     <div className="flex justify-between gap-2">
                         <aside className="hidden xl:block w-[240px] sticky top-16 h-fit">
                             <Left />

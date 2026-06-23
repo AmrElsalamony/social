@@ -50,7 +50,7 @@ const ProfilePosts = () => {
       ) : <>
       <div>
 
-        <h1 className='text-center font-bold text-xl'>No posts to show</h1>
+        <h1 className='text-center font-bold text-xl text-main py-10'>No posts to show</h1>
       </div>
       
       </>}

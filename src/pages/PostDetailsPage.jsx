@@ -259,12 +259,12 @@ const PostDetailsPage = () => {
     return (
         <>
             {isDeleted ? (
-                <div className="bg-white mt-5  rounded-2xl mx-5  shadow-sm border border-gray-100 px-6 py-20 text-center">
+                <div className="card mt-5  rounded-2xl mx-5  shadow-sm border border-gray-100 px-6 py-20 text-center">
                     <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
                         <i className="fa-solid fa-trash text-gray-500 text-xl"></i>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-800">Post Deleted</h3>
-                    <p className="text-sm text-gray-500 mt-2">Sorry, This post has been Deleted.</p>
+                    <h3 className="text-lg font-semibold text-main">Post Deleted</h3>
+                    <p className="text-sm text-sub mt-2">Sorry, This post has been Deleted.</p>
                     <Link to="/" className="inline-flex items-center gap-2 mt-5 px-5 py-2.5 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
                         <i className="fa-solid fa-house"></i> Go to Feed
                     </Link>
