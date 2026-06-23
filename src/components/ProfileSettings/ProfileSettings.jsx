@@ -102,119 +102,125 @@ export default function ProfileSettings() {
 
 
   return (
-   <div className="container mx-auto px-3 pt-5">
-     <div className="w-full max-w-2xl mx-auto space-y-6">
+    <div className="container mx-auto px-3 pt-5">
+      <div className="w-full max-w-2xl mx-auto space-y-6">
 
-      {/* PROFILE PHOTO */}
-      <div className="bg-white shadow-md rounded-2xl p-4 border">
+        {/* PROFILE PHOTO */}
+        <div className="card shadow-md rounded-2xl p-4 border">
 
-        <h2 className="text-lg font-semibold mb-4">
-          Profile Photo
-        </h2>
+          <h2 className="text-lg font-semibold mb-4 text-main">
+            Profile Photo
+          </h2>
 
-        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
 
-          <Avatar
-            src={preview || userData?.photo}
-            sx={{ width: 90, height: 90 }}
-            className="bg-gray-100"
-          />
-
-          <div className="flex flex-col gap-2">
-
-            <input
-              type="file"
-              ref={fileRef}
-              className="hidden"
-              accept="image/*"
-              onChange={handleImageChange}
+            <Avatar
+              src={preview || userData?.photo}
+              sx={{ width: 90, height: 90 }}
+              className="bg-gray-100"
             />
 
-            <Button
-              variant="outlined"
-              startIcon={<PhotoCameraIcon />}
-              onClick={handlePickImage}
-              sx={{ textTransform: "none" }}
-            >
-              Change Photo
-            </Button>
+            <div className="flex flex-col gap-2">
 
-            <Button
-              variant="contained"
-              disabled={!photoFile}
-              onClick={updateProfilePicture}
-              sx={{ textTransform: "none" }}
-            >
-              Save Photo
-            </Button>
+              <input
+                type="file"
+                ref={fileRef}
+                className="hidden"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
 
-            {photoFile && (
+              <Button
+                variant="outlined"
+                startIcon={<PhotoCameraIcon />}
+                onClick={handlePickImage}
+                sx={{ textTransform: "none" }}
+              >
+                Change Photo
+              </Button>
+
               <Button
                 variant="contained"
-                onClick={removeImage}
-                sx={{ textTransform: "none", backgroundColor: "#ef5350" }}
+                disabled={!photoFile}
+                onClick={updateProfilePicture}
+                sx={{ textTransform: "none" }}
               >
-                delete Photo
+                Save Photo
               </Button>
-            )}
+
+              {photoFile && (
+                <Button
+                  variant="contained"
+                  onClick={removeImage}
+                  sx={{ textTransform: "none", backgroundColor: "#ef5350" }}
+                >
+                  delete Photo
+                </Button>
+              )}
+
+            </div>
 
           </div>
-
         </div>
-      </div>
 
-      {/* PASSWORD */}
-      <div className="bg-white shadow-md rounded-2xl p-4 border">
+        {/* PASSWORD */}
+        <div className="card shadow-md rounded-2xl p-4 border">
 
-        <h2 className="text-lg font-semibold mb-4">
-          Change Password
-        </h2>
+          <h2 className="text-lg font-semibold mb-4 text-main">
+            Change Password
+          </h2>
 
-        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 ">
 
-          <TextField
+            <TextField
             type="password"
             label="Current Password"
             fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            
+   
+            
           />
+       
 
-          <TextField
-            type="password"
-            label="New Password"
-            fullWidth
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-          {error && (
-            <p className="text-red-900 text-sm mt-2 bg-red-200 py-2 text-center rounded-lg">
-              {error}
-            </p>
-          )}
-          {success && (
-            <p className="text-green-900 text-sm mt-2 bg-green-200 py-2 text-center rounded-lg">
-              {success}
-            </p>
-          )}
-          <Button
-            variant="contained"
-            disabled={!password || !newPassword}
-            onClick={() => handlePasswordUpdate(password, newPassword)}
-            sx={{
-              textTransform: "none",
-              borderRadius: "10px",
-            }}
-          >
-            {loading ? "Loading..." : "Change Password"}
-          </Button>
+          
 
+           <TextField
+              type="password"
+              label="New Password"
+              fullWidth
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            /> 
+            {error && (
+              <p className="text-red-900 text-sm mt-2 bg-red-200 py-2 text-center rounded-lg">
+                {error}
+              </p>
+            )}
+            {success && (
+              <p className="text-green-900 text-sm mt-2 bg-green-200 py-2 text-center rounded-lg">
+                {success}
+              </p>
+            )}
+            <Button
+              variant="contained"
+              disabled={!password || !newPassword}
+              onClick={() => handlePasswordUpdate(password, newPassword)}
+              sx={{
+                textTransform: "none",
+                borderRadius: "10px",
+              }}
+            >
+              {loading ? "Loading..." : "Change Password"}
+            </Button>
+
+
+          </div>
 
         </div>
 
       </div>
-
     </div>
-   </div>
   );
 }

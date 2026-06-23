@@ -16,21 +16,21 @@ export default function AboutSection() {
      
     }, [user]);
   return (
-    <Card className="w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl shadow-md">
+    <Card className="card w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl shadow-md">
 
       <CardContent>
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-4 ">
 
-          <Avatar src={user?.photo} />
+          <Avatar src={user?.photo} className='bg-gray-50' />
 
           <div>
-            <Typography fontWeight="bold">
+            <Typography  className='text-main font-bold'>
               About
             </Typography>
 
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" className='text-main font-bold'>
               Profile Information
             </Typography>
 
@@ -40,35 +40,35 @@ export default function AboutSection() {
 
         {/* Info list */}
 
-        <div className="space-y-4 text-sm">
+        <div className="space-y-4 text-sm *:text-main *:text-bold ">
 
           {/* Name */}
           <div className="flex items-center gap-2">
-            <PersonIcon fontSize="small" />
+            <PersonIcon fontSize="small" className='text-sub'  />
             <span>{user?.name}</span>
           </div>
 
           {/* Username */}
           <div className="flex items-center gap-2">
-            <PersonIcon fontSize="small" />
+            <PersonIcon fontSize="small" className='text-sub'/>
             <span>@{user?.username}</span>
           </div>
 
           {/* Email */}
           <div className="flex items-center gap-2">
-            <EmailIcon fontSize="small" />
+            <EmailIcon fontSize="small" className='text-sub' />
             <span>{user?.email}</span>
           </div>
 
           {/* Gender */}
           <div className="flex items-center gap-2">
-            <WcIcon fontSize="small" />
+            <WcIcon fontSize="small" className='text-sub' />
             <span>{user?.gender}</span>
           </div>
 
           {/* Birth date */}
           <div className="flex items-center gap-2">
-            <CakeIcon fontSize="small" />
+            <CakeIcon fontSize="small" className='text-sub' />
             <span>
               {user?.dateOfBirth &&
                 new Date(user.dateOfBirth).toLocaleDateString()}

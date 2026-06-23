@@ -29,516 +29,405 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
 import { AuthContext } from "../Contexts/AuthContext";
 import { NotificationContext } from "../Contexts/Notifications";
-
+import NotificationsMenu from './NotificationCenter/NotificationCenter'; // Keep your original import
+import { ThemeContext } from './../Contexts/ThemeContext';
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [notificationDrawerOpen, setNotificationDrawerOpen] = useState(false);
   const [active, setActive] = useState("Home");
-const { userData } = useContext(UserContext)
-const { notificationNumber } = useContext(NotificationContext)
-  const navigate = useNavigate()
-  const {isLogged , setIsLogged} = useContext(AuthContext)
-
-  const [notificationMenu, setNotificationMenu] = useState(false);
+  const { userData } = useContext(UserContext);
+  const { notificationNumber } = useContext(NotificationContext);
+  const navigate = useNavigate();
+  const { isLogged, setIsLogged } = useContext(AuthContext);
 
   function logout() {
-    localStorage.removeItem("token")
-    setIsLogged(false)
-    navigate("/login")
+    localStorage.removeItem("token");
+    setIsLogged(false);
+    navigate("/login");
   }
 
-   const toggle = () => {
-    setNotificationMenu(prev => !prev);
+  const toggleNotificationDrawer = (open) => {
+    setNotificationDrawerOpen(open);
   };
 
+  const location = useLocation();
 
-  const location = useLocation()
   return (
     <>
-    
-{notificationMenu?<NotificationsMenu toggle={toggle} /> : ""}
-    
+      {/* Notification Drawer - Slides from Right */}
+      <Drawer
+        anchor="right"
+        open={notificationDrawerOpen}
+        onClose={() => toggleNotificationDrawer(false)}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: '100%',
+            maxWidth: '420px',
+            height: '100vh',
+            backgroundColor: 'white',
+            borderTopLeftRadius: '16px',
+            borderBottomLeftRadius: '16px',
+            overflow: 'hidden',
+            '@media (max-width: 600px)': {
+              maxWidth: '100%',
+              borderTopLeftRadius: '0',
+              borderBottomLeftRadius: '0',
+            },
+          },
+        }}
+      >
+        {/* Drawer Header */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '16px 20px',
+            borderBottom: '1px solid #e5e7eb',
+            // backgroundColor: 'white',
+            position: 'sticky',
+            top: 0,
+            zIndex: 1,
+          }}
+          className={"card rounded-none"}
+        >
+          <div className="flex items-center gap-3 ">
+            <div className=" flex items-center justify-center text-xs font-bold">
+              <img src={userData.photo} className="w-10  h-10 bg-gray-50 rounded-full" alt="" />
+              <h2 className="text-xl font-bold text-main ms-4">{userData.name}</h2>
+            </div>
+
+            {notificationNumber > 0 && (
+              <Badge
+                badgeContent={notificationNumber > 0 ? notificationNumber : null}
+                color="error"
+                sx={{
+                  '& .MuiBadge-badge': {
+                    fontSize: '0.7rem',
+                    minWidth: '18px',
+                    height: '18px',
+                    padding: '0 4px',
+                  }
+                }}
+              >
+                <Notifications className="text-sub" />
+              </Badge>
+            )}
+          </div>
+          <IconButton
+            onClick={() => toggleNotificationDrawer(false)}
+            sx={{
+              '&:hover': {
+                backgroundColor: '#f3f4f6',
+              },
+            }}
+          >
+            <Close className="text-sub" />
+          </IconButton>
+        </Box>
+
+        {/* Notification Content */}
+        <Box sx={{ height: 'calc(100vh - 72px)', overflow: 'auto' }}>
+          <NotificationsMenu
+            toggle={() => toggleNotificationDrawer(false)}
+            isInDrawer={true}
+          />
+        </Box>
+      </Drawer>
+
       <AppBar
         position="sticky"
         elevation={1}
         sx={{
           bgcolor: "white",
           color: "black",
-         
         }}
       >
-        <Toolbar className="flex justify-between items-center h-[70px] sm:h-fit">
-
+        <Toolbar className="card rounded-none flex justify-between items-center h-[70px] sm:h-fit">
           {/* LEFT */}
           <div className="flex items-center gap-3">
-
-            {/* Logo */}
-           <Link to={"/"}>
-            <div
-              className="
-              w-10 h-10
-              rounded-full
-              bg-blue-600
-              text-white
-              flex
-              items-center
-              justify-center
-              text-xs
-              font-bold
-              cursor-pointer
-              "
-            >
-              Amr
-            </div>
-
-
-           </Link>
-
-      
+            <Link to={"/"}>
+              <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold cursor-pointer">
+                Amr
+              </div>
+            </Link>
           </div>
 
           {/* CENTER */}
           <div className="hidden lg:flex gap-3 ms-[80px]">
-
-           
-            <Link  to={"/"}>
-            
+            <Link to={"/"}>
               <IconButton
-                
                 onClick={() => setActive("feed")}
-                
                 sx={{
                   borderBottom:
-                     location.pathname === "/"||location.pathname.includes("post-details")
+                    location.pathname === "/" || location.pathname.includes("post-details")
                       ? "3px solid #1877F2"
                       : "none",
-
                   borderRadius: 0,
-
                   color:
-                     location.pathname === "/"||location.pathname.includes("post-details")
+                    location.pathname === "/" || location.pathname.includes("post-details")
                       ? "#1877F2"
                       : "#65676B",
-
                   width: 100,
                 }}
               >
-                {<Home />}
+                <Home />
               </IconButton>
             </Link>
 
-            <Link  to={`/profile/${userData._id}/posts`}>
-            
+            <Link to={`/profile/${userData._id}/posts`}>
               <IconButton
-                
                 onClick={() => setActive("profile")}
-                
                 sx={{
                   borderBottom:
-                     location.pathname === "/profile"||location.pathname.includes("/profile")
+                    location.pathname === "/profile" || location.pathname.includes("/profile")
                       ? "3px solid #1877F2"
                       : "none",
-
                   borderRadius: 0,
-
                   color:
-                     location.pathname === "/profile"||location.pathname.includes("/profile")
+                    location.pathname === "/profile" || location.pathname.includes("/profile")
                       ? "#1877F2"
                       : "#65676B",
-
                   width: 100,
                 }}
               >
-                {<Person />}
+                <Person />
               </IconButton>
             </Link>
 
-               <Link  to={"/suggestion"}>
-            
+            <Link to={"/suggestion"}>
               <IconButton
-                
                 onClick={() => setActive("suggestion")}
-                
                 sx={{
                   borderBottom:
-                     location.pathname === "/suggestion"
+                    location.pathname === "/suggestion"
                       ? "3px solid #1877F2"
                       : "none",
-
                   borderRadius: 0,
-
                   color:
-                     location.pathname === "/suggestion"
+                    location.pathname === "/suggestion"
                       ? "#1877F2"
                       : "#65676B",
-
                   width: 100,
                 }}
               >
-                {<GroupAddIcon/>}
+                <GroupAddIcon />
               </IconButton>
             </Link>
-             <Link  to={"/settings"}>
-            
+
+            <Link to={"/settings"}>
               <IconButton
-                
                 onClick={() => setActive("settings")}
-                
                 sx={{
                   borderBottom:
-                     location.pathname === "/settings"
+                    location.pathname === "/settings"
                       ? "3px solid #1877F2"
                       : "none",
-
                   borderRadius: 0,
-
                   color:
-                     location.pathname === "/settings"
+                    location.pathname === "/settings"
                       ? "#1877F2"
                       : "#65676B",
-
                   width: 100,
                 }}
               >
-                {<SettingsIcon/>}
+                <SettingsIcon />
               </IconButton>
             </Link>
-              <Link  to={"/bookmarks"}>
-            
+
+            <Link to={"/bookmarks"}>
               <IconButton
-                
                 onClick={() => setActive("bookmarks")}
-                
                 sx={{
                   borderBottom:
-                     location.pathname === "/bookmarks"
+                    location.pathname === "/bookmarks"
                       ? "3px solid #1877F2"
                       : "none",
-
                   borderRadius: 0,
-
                   color:
-                     location.pathname === "/bookmarks"
+                    location.pathname === "/bookmarks"
                       ? "#1877F2"
                       : "#65676B",
-
                   width: 100,
                 }}
               >
-                {<BookmarkIcon/>}
+                <BookmarkIcon />
               </IconButton>
             </Link>
-          
           </div>
 
           {/* RIGHT */}
           <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-slate-700 transition"
+            >
+              {theme === "dark" ? (
+                <MdLightMode className="text-2xl text-yellow-400" />
+              ) : (
+                <MdDarkMode className="text-2xl text-slate-700 dark:text-white" />
+              )}
+            </button>
 
-        
-
-          
-
-            <IconButton onClick={toggle}>
-              <Badge badgeContent={notificationNumber} color="error">
-                <Notifications />
+            {/* Notification Button */}
+            <IconButton
+              onClick={() => toggleNotificationDrawer(true)}
+              className="relative"
+              aria-label="Notifications"
+            >
+              <Badge
+                badgeContent={notificationNumber > 0 ? notificationNumber : null}
+                color="error"
+                sx={{
+                  '& .MuiBadge-badge': {
+                    fontSize: '0.7rem',
+                    minWidth: '18px',
+                    height: '18px',
+                    padding: '0 4px',
+                  }
+                }}
+              >
+                <Notifications className="text-sub" />
               </Badge>
             </IconButton>
 
-           <Link to={`/profile/${userData._id}/posts`}>
-           <Avatar
-  src={`${userData?.photo}?v=${Date.now()}`}
-
-   className="bg-gray-200"
-              src={userData?.photo}
-              sx={{
-                width: 38,
-                height: 38,
-                cursor: "pointer",
-              }}
-/>
-            {/* <Avatar
-            className="bg-gray-200"
-              src={userData?.photo}
-              sx={{
-                width: 38,
-                height: 38,
-                cursor: "pointer",
-              }}
-            /> */}
-            
+            <Link to={`/profile/${userData._id}/posts`}>
+              <Avatar
+                src={`${userData?.photo}?v=${Date.now()}`}
+                className="bg-gray-200"
+                sx={{
+                  width: 38,
+                  height: 38,
+                  cursor: "pointer",
+                }}
+              />
             </Link>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Button */}
             <IconButton
               className="md:hidden"
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenDrawer(true)}
             >
-              <Menu />
+              <Menu className="text-sub" />
             </IconButton>
-
           </div>
         </Toolbar>
       </AppBar>
 
-      {/* Drawer */}
-
+      {/* Mobile Menu Drawer */}
       <Drawer
         anchor="left"
-        open={open}
-        onClose={() => setOpen(false)}
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
       >
-        <Box className="w-72 ">
-
+        <Box className="w-72 card h-full rounded-none">
           <div className="flex justify-between p-4">
-
-            <div className="font-bold text-xl">
-              Menu
-            </div>
-
-            <IconButton
-              onClick={() => setOpen(false)}
-            >
-              <Close />
+            <div className="font-bold text-xl text-main">Menu</div>
+            <IconButton onClick={() => setOpenDrawer(false)}>
+              <Close className="text-sub" />
             </IconButton>
-
           </div>
 
-          <List>
-
-          
-              <Link  to={"/"}>
-              <ListItem
-               
-                disablePadding
-              >
+          <List className="*:text-sub">
+            <Link to={"/"}>
+              <ListItem disablePadding>
                 <ListItemButton
                   onClick={() => {
                     setActive("Home");
-                    setOpen(false);
+                    setOpenDrawer(false);
                   }}
                 >
                   <div className="mr-4">
                     <Home />
                   </div>
-
-                  <ListItemText
-                    primary={"Home"}
-                  />
+                  <ListItemText primary={"Home"} />
                 </ListItemButton>
               </ListItem>
-              </Link>
+            </Link>
 
-             <Link  to={`/profile/${userData._id}/posts`}>
-              <ListItem
-               
-                disablePadding
-              >
+            <Link to={`/profile/${userData._id}/posts`}>
+              <ListItem disablePadding>
                 <ListItemButton
                   onClick={() => {
                     setActive("Profile");
-                    setOpen(false);
+                    setOpenDrawer(false);
                   }}
                 >
                   <div className="mr-4">
                     <Person />
                   </div>
-
-                  <ListItemText
-                    primary={"Profile"}
-                  />
+                  <ListItemText primary={"Profile"} />
                 </ListItemButton>
               </ListItem>
-              </Link>
+            </Link>
 
-
- <Link  to={"/suggestion"}>
-              <ListItem
-               
-                disablePadding
-              >
+            <Link to={"/suggestion"}>
+              <ListItem disablePadding>
                 <ListItemButton
                   onClick={() => {
                     setActive("suggestion");
-                    setOpen(false);
+                    setOpenDrawer(false);
                   }}
                 >
                   <div className="mr-4">
                     <GroupAddIcon />
                   </div>
-
-                  <ListItemText
-                    primary={"suggestion"}
-                  />
+                  <ListItemText primary={"suggestion"} />
                 </ListItemButton>
               </ListItem>
-              </Link>
+            </Link>
 
- <Link  to={"/settings"}>
-              <ListItem
-               
-                disablePadding
-              >
+            <Link to={"/settings"}>
+              <ListItem disablePadding>
                 <ListItemButton
                   onClick={() => {
                     setActive("settings");
-                    setOpen(false);
+                    setOpenDrawer(false);
                   }}
                 >
                   <div className="mr-4">
-                    <SettingsIcon/>
+                    <SettingsIcon />
                   </div>
-
-                  <ListItemText
-                    primary={"settings"}
-                  />
+                  <ListItemText primary={"settings"} />
                 </ListItemButton>
               </ListItem>
-              </Link>
+            </Link>
 
-              <Link  to={"/bookmarks"}>
-              <ListItem
-               
-                disablePadding
-              >
+            <Link to={"/bookmarks"}>
+              <ListItem disablePadding>
                 <ListItemButton
                   onClick={() => {
                     setActive("bookmarks");
-                    setOpen(false);
+                    setOpenDrawer(false);
                   }}
                 >
                   <div className="mr-4">
                     <BookmarkIcon />
                   </div>
-
-                  <ListItemText
-                    primary={"bookmarks"}
-                  />
+                  <ListItemText primary={"bookmarks"} />
                 </ListItemButton>
               </ListItem>
-              </Link>
+            </Link>
 
-
-              <ListItem
-               onClick={logout}
-                disablePadding
+            <ListItem onClick={logout} disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  setActive("Logout");
+                  setOpenDrawer(false);
+                }}
               >
-                <ListItemButton
-                  onClick={() => {
-                    setActive("Logout");
-                    setOpen(false);
-                  }}
-                >
-                  <div className="mr-4">
-                    <Logout />
-                  </div>
-
-                  <ListItemText
-                    primary={"Logout"}
-                  />
-                </ListItemButton>
-              </ListItem>
-
-
-
-        
-
+                <div className="mr-4">
+                  <Logout />
+                </div>
+                <ListItemText primary={"Logout"} />
+              </ListItemButton>
+            </ListItem>
           </List>
         </Box>
       </Drawer>
     </>
   );
 }
-
-
-// import { Link, useNavigate } from 'react-router-dom';
-// import { useContext, useState } from "react";
-// import { AuthContext } from './../Contexts/AuthContext';
-
-// import {
-import NotificationsMenu from './NotificationCenter/NotificationCenter';
-
-//   Navbar as Navbarr,
-//   NavbarBrand,
-//   NavbarContent,
-//   NavbarItem,
-//   NavbarMenuToggle,
-//   NavbarMenu,
-//   NavbarMenuItem,
-//   Button,
-// } from "@heroui/react";
-
-// export default function Navbar() {
-//   const navigate = useNavigate()
-//   const {isLogged , setIsLogged} = useContext(AuthContext)
-  
-//   function logout() {
-//     localStorage.removeItem("token")
-//     setIsLogged(false)
-//     navigate("/login")
-//   }
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-//   const menuItems = ["Feed", "Profile", "Contact"];
-
-//   return (
-//     <Navbarr onMenuOpenChange={setIsMenuOpen}>
-
-//       {/* LEFT - BRAND */}
-//       <NavbarBrand>
-//         <p className="font-bold text-inherit text-2xl">Circle</p>
-//       </NavbarBrand>
-
-//       {/* MOBILE TOGGLE */}
-//       <NavbarMenuToggle
-//         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-//         className="sm:hidden"
-//       />
-
-//       {/* CENTER - DESKTOP LINKS */}
-//       <NavbarContent className="hidden sm:flex gap-6" justify="center">
-//         {menuItems.map((item) => (
-//           <NavbarItem key={item}>
-//             <Link to={item}>
-//               {item}
-//             </Link>
-//           </NavbarItem>
-//         ))}
-//       </NavbarContent>
-
-//       {/* RIGHT - BUTTON */}
-//       <NavbarContent justify="end">
-//         {!isLogged ? <>
-//           <NavbarItem>
-//             <Button  className='bg-blue-400 rounded-lg text-white px-4 py-2' size="sm">
-//               Login
-//             </Button>
-//           </NavbarItem>
-//           <NavbarItem>
-//             <Button  className='bg-green-400 rounded-lg text-white px-4 py-2' size="sm">
-//               Signup
-//             </Button>
-//           </NavbarItem></> : <>
-//           <NavbarItem>
-//             <Button onClick={logout} className='bg-red-200 rounded-lg text-red-900 px-4 py-2' size="sm">
-//               logout
-//             </Button>
-//           </NavbarItem>
-//         </>}
-
-//       </NavbarContent>
-
-//       {/* MOBILE MENU */}
-//       <NavbarMenu>
-//         {menuItems.map((item) => (
-//           <NavbarMenuItem key={item}>
-//             <Link className="w-full block py-2 text-sm" to={item}>
-//               {item}
-//             </Link>
-//           </NavbarMenuItem>
-//         ))}
-//       </NavbarMenu>
-
-//     </Navbarr>
-//   );
-// }
-

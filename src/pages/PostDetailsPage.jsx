@@ -20,6 +20,7 @@ import { Avatar, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import LoadingCard from './../components/LoadingCard/LoadingCard';
 import { showToast } from '../components/CustomToast';
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 
 const PostDetailsPage = () => {
     const { id } = useParams();
@@ -272,7 +273,7 @@ const PostDetailsPage = () => {
                 <LoadingCard />
             ) : (<>
                 <div className="container mx-auto my-6 px-2">
-                    <div className="w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                    <div className="card w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto  rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
 
                         {/* Header */}
                         <div className="flex justify-between items-start p-4">
@@ -284,8 +285,8 @@ const PostDetailsPage = () => {
                                         className="w-12 h-12 rounded-full object-cover"
                                     />
                                     <div>
-                                        <h3 className="font-semibold text-gray-900">{post?.user?.name}</h3>
-                                        <div className="flex items-center gap-1 text-sm text-gray-500">
+                                        <h3 className="font-semibold text-main">{post?.user?.name}</h3>
+                                        <div className="flex items-center gap-1 text-sm text-sub">
                                             <span>{formatPostDate(post.createdAt)}</span>
                                             <span>·</span>
                                             <FaGlobeAmericas className="text-xs" />
@@ -297,23 +298,24 @@ const PostDetailsPage = () => {
                                 {/* Bookmark Button */}
                                 <button
                                     onClick={bookMarkFunction}
-                                    className="px-3 py-2 rounded-full hover:bg-gray-100 active:bg-gray-200 transition-all duration-200 text-3xl"
+                                    className="px-3 py-2 rounded-full  transition-all duration-200 text-3xl"
                                     title="Bookmark"
                                 >
-                                    {isBookMarked ? '★' : '☆'}
+                                    {isBookMarked ? <FaBookmark className="text-blue-600 text-xl" /> : <FaRegBookmark className="text-sub hover:text-blue-600 transition duration-200 text-xl" />}
+
                                 </button>
 
                                 {isOwner && (
                                     <div className="relative">
                                         <button
                                             onClick={() => setThreeDots(!threeDots)}
-                                            className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition"
+                                            className="w-10 h-10 rounded-full text-sub hover:text-blue-600 flex items-center justify-center transition"
                                         >
                                             <BsThreeDots size={20} />
                                         </button>
 
                                         {threeDots && (
-                                            <div className="absolute top-12 right-[-10px] w-44 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50">
+                                            <div className="card absolute top-12 right-[-10px] w-44  rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-20">
                                                 <button
                                                     onClick={() => {
                                                         setShowUpdateModal(true);
@@ -322,13 +324,13 @@ const PostDetailsPage = () => {
                                                         setSelectedImage(null);
                                                         setRemoveImage(false);
                                                     }}
-                                                    className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-all duration-200"
+                                                    className="w-full px-4 py-3 flex items-center gap-3 hover:bg-green-50 transition-all duration-200"
                                                 >
-                                                    <i className="fa-solid fa-pen text-gray-500"></i>
-                                                    <span className="text-sm font-medium text-gray-700">Update Post</span>
+                                                    <i className="fa-solid fa-pen text-green-500"></i>
+                                                    <span className="text-sm font-medium text-green-500">Update Post</span>
                                                 </button>
 
-                                                <div className="h-px bg-gray-100" />
+                                                <div className="h-px dark:bg-[#334155] bg-gray-50" />
 
                                                 <button
                                                     onClick={() => deletePostFunction(post?._id)}
@@ -346,18 +348,18 @@ const PostDetailsPage = () => {
 
                         {/* Content */}
                         <div className="px-4 ">
-                            <p className="text-gray-800 leading-7">{post.body}</p>
+                            <p className="text-main leading-7">{post.body}</p>
                         </div>
 
                         {post?.sharedPost &&
                             <Link to={`/post-details/${originalPost?._id}`}>
                                 <div className="px-4">
-                                    <div className="text-gray-500 text-sm mb-2">
+                                    <div className="text-sub text-sm mb-2">
                                         {sharer?.name} shared a post
                                     </div>
 
-                                    <p className="mb-3">{post.body}</p>
-                                    <div className="border rounded-xl p-3">
+                                    <p className="mb-3 text-sub">{post.body}</p>
+                                    <div className="border my-border rounded-xl p-3">
 
                                         <div className="flex gap-2 items-center mb-2">
                                             <img
@@ -366,16 +368,16 @@ const PostDetailsPage = () => {
                                                 alt=""
                                             />
                                             <div>
-                                                <h4>{originalPost?.user?.name}</h4>
-                                                <span className="text-sm text-gray-500">
+                                                <h4 className='text-main'>{originalPost?.user?.name}</h4>
+                                                <span className="text-sm text-sub">
                                                     @{originalPost?.user?.username}
                                                 </span>
                                             </div>
                                         </div>
 
-                                        <p>{originalPost?.body}</p>
+                                        <p className='text-sub mb-2'>{originalPost?.body}</p>
                                         {originalPost?.image && (
-                                            <img className="max-h-[400px] w-full" src={originalPost.image} alt="" />
+                                            <img className="max-h-[400px] w-full rounded-lg" src={originalPost.image} alt="" />
                                         )}
                                     </div>
                                 </div>
@@ -394,7 +396,7 @@ const PostDetailsPage = () => {
                         )}
 
                         {/* Stats */}
-                        <div className="px-4 py-3 flex justify-between items-center text-sm text-gray-500 border-b border-gray-200">
+                        <div className="px-4 py-3 flex justify-between items-center text-sm text-sub border-b dark:border-[#334155]">
                             {likesCount > 0 && (
                                 <button
                                     onClick={() => {
@@ -404,26 +406,26 @@ const PostDetailsPage = () => {
                                     className="flex items-center gap-2 hover:underline"
                                 >
                                     <div className="w-5 h-5 rounded-full bg-blue-500 text-white text-xs flex items-center justify-center">👍</div>
-                                    <span>{likesCount}</span>
+                                    <span className='text-sub'>{likesCount}</span>
                                 </button>
                             )}
 
                             <div className="flex gap-4">
                                 {commentsCount > 0 && (
-                                    <span>{commentsCount} {commentsCount === 1 ? "comment" : "comments"}</span>
+                                    <span className='text-sub'>{commentsCount} {commentsCount === 1 ? "comment" : "comments"}</span>
                                 )}
                                 {sharesCount > 0 && (
-                                    <span>{sharesCount} {sharesCount === 1 ? "share" : "shares"}</span>
+                                    <span className='text-sub'>{sharesCount} {sharesCount === 1 ? "share" : "shares"}</span>
                                 )}
                             </div>
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="grid grid-cols-3 p-2">
+                        <div className="grid grid-cols-3 p-2 ">
                             <button
                                 onClick={likeFunction}
                                 disabled={likesLoading}
-                                className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 transition font-medium"
+                                className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-[#334155] transition font-medium"
                             >
                                 {likesLoading ? (
                                     <i className="fa fa-spinner fa-spin text-blue-600" />
@@ -434,13 +436,13 @@ const PostDetailsPage = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <ThumbUpOffAltIcon fontSize="small" className="text-gray-600" />
-                                        <span className="text-gray-600">Like</span>
+                                        <ThumbUpOffAltIcon fontSize="small" className="text-sub" />
+                                        <span className="text-sub">Like</span>
                                     </>
                                 )}
                             </button>
 
-                            <button className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 transition font-medium text-gray-600">
+                            <button className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-[#334155] text-sub transition font-medium text-gray-600">
                                 <FaRegCommentAlt /> Comment
                             </button>
 
@@ -448,9 +450,9 @@ const PostDetailsPage = () => {
                             <button
                                 onClick={handleShare}
                                 disabled={isShared || shareLoading}
-                                className={`flex items-center justify-center gap-2 py-3 rounded-xl transition font-medium ${isShared
+                                className={`flex items-center justify-center gap-2 py-3 rounded-xl transition font-medium hover:bg-gray-100 dark:hover:bg-[#334155] ${isShared
                                     ? ' text-blue-600 cursor-not-allowed opacity-80'
-                                    : ' text-gray-600'
+                                    : ' text-sub'
                                     } ${shareLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 {shareLoading ? (
@@ -465,14 +467,14 @@ const PostDetailsPage = () => {
                         {/* Comments Section */}
                         {comments.length > 0 && (
                             <div className="w-full">
-                                <div className="w-[95%] mx-auto rounded-2xl">
+                                <div className="w-[95%] mx-auto rounded-2xl ">
                                     {comments.slice(0, visibleComments).map((comment, index) => (
                                         <CommentCard key={index} comment={comment} />
                                     ))}
                                     {visibleComments < comments.length && (
                                         <button
                                             onClick={loadMore}
-                                            className="flex items-center gap-3 px-2.5 py-2.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition-all duration-200 w-fit mx-auto mb-5"
+                                            className="flex items-center gap-3 px-2.5 py-2.5 rounded-full card hover:bg-gray-200 hover:text-black  duration-200 text-main font-medium transition-all duration-200 w-fit mx-auto mb-5"
                                         >
                                             <FaChevronDown className="text-sm" /> Load more comments
                                         </button>
@@ -482,24 +484,24 @@ const PostDetailsPage = () => {
                         )}
 
                         {/* Add Comment */}
-                        <div className="flex items-center gap-3 w-full py-4 px-5">
+                        <div className="card flex items-center gap-3 w-[95%] mx-auto py-4 px-5 mb-5 rounded-2xl">
                             <Avatar src={userData?.photo} sx={{ width: 40, height: 40 }} className='bg-[#F0F2F5]' />
-                            <div className="flex items-center justify-between flex-1 bg-[#F0F2F5] rounded-full px-4 py-2">
+                            <div className=" flex items-center justify-between flex-1 dark:bg-[#1E293B] rounded-full ">
                                 <input
                                     type="text"
                                     placeholder="Write a comment..."
-                                    className="flex-1 bg-transparent outline-none text-sm placeholder:text-gray-500"
+                                    className="flex-1 bg-transparent outline-none text-sm placeholder:text-sub input"
                                     value={createdComment}
                                     onChange={(e) => setCreatedComment(e.target.value)}
                                     onKeyDown={(e) => e.key === "Enter" && handleComment(createdComment)}
                                 />
                                 {createdComment.trim() ? (
                                     <IconButton onClick={() => handleComment(createdComment)} disabled={isSubmitting} size="small">
-                                        {isSubmitting ? <i className="fa fa-spinner fa-spin" /> : <SendIcon className="text-blue-500 text-lg" />}
+                                        {isSubmitting ? <i className="fa fa-spinner fa-spin text-blue-500 " /> : <SendIcon className="text-blue-500  text-lg" />}
                                     </IconButton>
                                 ) : (
-                                    <IconButton disabled size="small">
-                                        <SendIcon className="text-gray-500 text-lg" />
+                                    <IconButton disabled >
+                                        <SendIcon className="text-sub text-lg  rounded-full " />
                                     </IconButton>
                                 )}
                             </div>
@@ -510,16 +512,16 @@ const PostDetailsPage = () => {
                 {/* Update Modal */}
                 {showUpdateModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 mt-5">
-                        <div className="bg-white w-full max-w-lg rounded-xl p-6 mx-3">
-                            <h2 className="text-xl font-semibold mb-4">Update Post</h2>
+                        <div className="card w-full max-w-lg rounded-xl p-6 mx-3">
+                            <h2 className="text-xl font-semibold mb-4 text-main">Update Post</h2>
                             <textarea
                                 value={updatedBody}
                                 onChange={(e) => setUpdatedBody(e.target.value)}
-                                className="w-full border border-gray-300 p-3 rounded-xl min-h-[60px] focus:outline-none focus:border-blue-500"
+                                className="input w-full border border-gray-300 p-3 rounded-xl min-h-[60px] focus:outline-none focus:border-blue-500"
                             />
 
                             <div className="mt-4">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Change Image</label>
+                                <label className="block text-sm font-medium text-sub mb-1">Change Image</label>
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -554,7 +556,7 @@ const PostDetailsPage = () => {
                             </div>
 
                             <div className="flex justify-end gap-3 mt-6">
-                                <button onClick={closeUpdateModal} className="px-5 py-2 text-gray-600 hover:bg-gray-100 rounded-xl">Cancel</button>
+                                <button onClick={closeUpdateModal} className="text-red-900 bg-red-100 px-5 py-2  hover:bg-red-400 rounded-xl transition">Cancel</button>
                                 <button onClick={handleUpdate} className="px-5 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700">Update Post</button>
                             </div>
                         </div>

@@ -61,7 +61,7 @@ export default function CreatePost({ getData }) {
   }
 
   return (
-    <div className="w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto mb-4 bg-white rounded-2xl shadow-md border border-gray-200 p-4">
+    <div className="card w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto mb-4  rounded-2xl shadow-md border  p-4">
 
       {/* USER */}
       <div className="flex items-center gap-3 mb-2">
@@ -76,12 +76,12 @@ export default function CreatePost({ getData }) {
 
         <div>
           <Link to={`/profile/${user._id}/posts`}>
-            <h4 className="font-semibold text-sm leading-tight">
+            <h4 className="font-semibold text-sm leading-tight text-main">
               {user?.name}
             </h4>
           </Link>
 
-          <div className="flex items-center gap-1 text-xs text-gray-500">
+          <div className="flex items-center gap-1 text-xs text-sub">
             <FaGlobe size={10} />
             <span>Public</span>
           </div>
@@ -94,7 +94,7 @@ export default function CreatePost({ getData }) {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder={`What's on your mind, ${user?.name || "User"}?`}
-        className="w-full resize-none outline-none text-sm min-h-[50px] py-1"
+        className="w-full resize-none outline-none text-sm min-h-[70px] py-1 input mt-2"
       />
 
       {/* FILE */}
@@ -126,12 +126,12 @@ export default function CreatePost({ getData }) {
       )}
 
       {/* ACTIONS */}
-      <div className="flex items-center justify-between mt-2 border-t pt-2">
+      <div className="flex items-center justify-between mt-2 border-t-[#334155] pt-2 ">
 
         {/* PHOTO */}
         <button
           onClick={handlePickImage}
-          className="flex items-center gap-2 text-gray-600 hover:text-blue-600"
+          className="flex items-center gap-2 text-sub hover:text-blue-600"
         >
           <FaImage />
           <span className="text-sm">Photo</span>

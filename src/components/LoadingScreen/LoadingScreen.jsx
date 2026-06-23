@@ -10,7 +10,7 @@ const LoadingScreen = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          minHeight: "60vh",
+          minHeight: "100vh",
         }}
       >
         <CircularProgress />

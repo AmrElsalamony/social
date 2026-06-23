@@ -3,7 +3,7 @@ import { Skeleton, Box, Stack } from "@mui/material";
 export default function LoadingCard() {
   return (
     <Box
-    className ="w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl shadow-lg"
+    className ="card w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl shadow-lg"
       sx={{
         
         margin: "20px auto",

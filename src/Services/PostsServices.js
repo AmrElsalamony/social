@@ -2,18 +2,40 @@ import axios from "axios";
 
 
 const baseUrl = "https://route-posts.routemisr.com"
-export default async function getPosts() {
+export async function getPostsPaginated(page = 1, limit = 10) {
   try {
     const { data } = await axios.get(baseUrl + "/posts", {
+      params: {
+        page,
+        limit,
+      },
       headers: {
         token: localStorage.getItem("token")
       }
     })
-    return data
+    return {
+      success: true,
+      posts: data.data.posts || [],
+      pagination: data.meta?.pagination || {
+        currentPage: page,
+        nextPage: null,
+        totalPages: 1,
+        totalItems: 0,
+      },
+    }
   } catch (error) {
-    return error
+    console.error('Error fetching posts:', error);
+    return {
+      success: false,
+      posts: [],
+      pagination: {
+        currentPage: 1,
+        nextPage: null,
+        totalPages: 0,
+        totalItems: 0,
+      },
+    }
   }
-
 }
 
 

@@ -70,12 +70,12 @@ const RegisterPage = () => {
                 <div className="col-span-3 hidden   lg:flex justify-center items-center text-center">
                     <div>
                         <h1 className="text-5xl text-blue-600 font-bold mb-4">Register now !</h1>
-                        <p className="text-gray-600">Connect with friends and the world around you.</p>
+                        <p className="text-sub">Connect with friends and the world around you.</p>
                         <img src={image} className="w-[450px]" alt="" />
                     </div>
                 </div>
-                <div className="col-span-2">
-                    <div className="py-6 mt-3 mb-6 max-w-2xl mx-2 md:mx-auto shadow-2xl px-4 rounded-xl  ">
+                <div className="col-span-2 ">
+                    <div className="bg-white py-6 mt-3 mb-6 max-w-2xl mx-2 md:mx-auto shadow-2xl px-4 rounded-xl  ">
                         <form onSubmit={handleSubmit(handleRegister)}>
                             <div className="flex flex-col gap-4">
                                 <div className="block lg:hidden text-center">

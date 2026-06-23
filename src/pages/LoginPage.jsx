@@ -61,11 +61,11 @@ const LoginPage = () => {
                 <div className="col-span-3 hidden lg:flex justify-center items-center text-center">
                     <div>
                         <h1 className="text-5xl text-blue-600 font-bold mb-4">Login now!</h1>
-                        <p className="text-gray-600">Connect with friends and the world around you.</p>
+                        <p className="text-sub">Connect with friends and the world around you.</p>
                         <img src={image} className="w-[450px]" alt="" />
                     </div>
                 </div>
-                <div className="col-span-5 lg:col-span-2 px-4 py-10 shadow-2xl mx-2 rounded-2xl ">
+                <div className="bg-white col-span-5 lg:col-span-2 px-4 py-10 shadow-2xl mx-2 rounded-2xl ">
                     <form onSubmit={handleSubmit(handleLogin)}>
                         <div className="flex flex-col gap-4">
                             <h1 className="block lg:hidden text-3xl text-blue-600 font-bold mb-5 text-center">Login now !</h1>
@@ -117,7 +117,7 @@ const LoginPage = () => {
                                 paddingBottom: "10px",
                             }} type="submit">Login</Button>
                             {apiErrorMsg && <p className="p-2 bg-red-200 text-red-800 text-sm text-center rounded-md">{apiErrorMsg}</p>}
-                            <p className="text-center">You don't have an account ? <Link to={"/register"} className="text-blue-500">Register now</Link></p>
+                            <p className="text-center ">You don't have an account ? <Link to={"/register"} className="text-blue-500">Register now</Link></p>
                         </div>
                     </form >
                 </div >

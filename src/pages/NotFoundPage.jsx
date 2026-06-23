@@ -1,13 +1,13 @@
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-gray-50">
+    <div className="card rounded-none min-h-screen flex flex-col items-center justify-center px-6 text-center">
       <h1 className="text-8xl font-extrabold text-blue-600">404</h1>
 
-      <h2 className="mt-6 text-3xl font-bold text-gray-800">
+      <h2 className="mt-6 text-3xl font-bold text-main">
         Oops! Page Not Found
       </h2>
 
-      <p className="mt-5 max-w-md text-gray-500">
+      <p className="mt-5 max-w-md text-sub">
         The page you are looking for doesn't exist or has been moved.
         Let's get you back to somewhere useful.
       </p>

@@ -75,7 +75,7 @@ const ProfilePage = () => {
   return <>
 
     {isLoading ? <LoadingScreen /> :
-      <div className="bg-white rounded-2xl overflow-hidden shadow-md">
+      <div className="card rounded-none overflow-hidden border-none">
 
         {/* Cover */}
         <div className="relative h-48 sm:h-64 bg-gray-200">
@@ -101,11 +101,11 @@ const ProfilePage = () => {
         <div className="pt-20 sm:pt-5 sm:pl-44 px-5 pb-6">
 
           <div className="text-center sm:text-left">
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-3xl font-bold text-main">
               {user?.name}
             </h1>
 
-            <p className="text-gray-500 mt-1">
+            <p className="text-sub mt-1">
               @{user?.username}
             </p>
           </div>
@@ -114,31 +114,31 @@ const ProfilePage = () => {
           <div className="flex justify-center sm:justify-start gap-8 mt-5">
 
             <div className="text-center">
-              <h3 className="font-bold text-xl">
+              <h3 className="font-bold text-xl text-main">
                 {user?.followersCount}
               </h3>
 
-              <p className="text-gray-500 text-sm">
+              <p className="text-sub text-sm">
                 Followers
               </p>
             </div>
 
             <div className="text-center">
-              <h3 className="font-bold text-xl">
+              <h3 className="font-bold text-xl text-main">
                 {user?.followingCount}
               </h3>
 
-              <p className="text-gray-500 text-sm">
+              <p className="text-sub text-sm">
                 Following
               </p>
             </div>
 
             <div className="text-center">
-              <h3 className="font-bold text-xl">
+              <h3 className="font-bold text-xl text-main">
                 {user?.bookmarksCount}
               </h3>
 
-              <p className="text-gray-500 text-sm">
+              <p className="text-sub text-sm">
                 Bookmarks
               </p>
             </div>
@@ -200,14 +200,14 @@ const ProfilePage = () => {
 
           {/* Tabs */}
 
-          <div className="flex justify-center gap-8 border-b bg-white rounded-xl px-4">
+          <div className="flex justify-center gap-8 border-b border-gray-200 dark:border-[#334155] rounded-none px-4">
 
             <NavLink
               to={`posts`}
               className={({ isActive }) =>
                 `py-4 font-medium border-b-2 ${location.pathname === `/profile/${id}/posts`
                   ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500"
+                  : "border-transparent text-main"
                 }`
               }
             >
@@ -220,7 +220,7 @@ const ProfilePage = () => {
               className={({ isActive }) =>
                 `py-4 font-medium border-b-2 ${location.pathname === `/profile/${id}/about`
                   ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500"
+                  : "border-transparent text-main"
                 }`
               }
             >

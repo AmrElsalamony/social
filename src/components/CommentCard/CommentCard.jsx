@@ -10,7 +10,7 @@ export default function CommentCard({ comment }) {
 
   return (
 
-    <div className="w-full shadow-sm p-2 rounded-xl border flex mb-4  group">
+    <div className="card border-none w-full shadow-sm p-2 rounded-xl  flex mb-4  group">
 
       {/* Avatar */}
       <Link to={`/profile/${comment.commentCreator._id}/posts`}>
@@ -22,26 +22,26 @@ export default function CommentCard({ comment }) {
       </Link>
       {/* Content */}
       <div className="flex-1">
-        <div className="bg-gray-100 rounded-2xl px-3 py-2 relative">
+        <div className="card rounded-2xl px-3 py-2 relative">
 
           {/* Name */}
           <Link to={`/profile/${comment.commentCreator._id}/posts`}>
-            <p className="font-semibold text-sm text-gray-900">
+            <p className="font-semibold text-sm text-main">
               {comment.commentCreator.name}
             </p>
           </Link>
           {/* Text */}
-          <p className="text-sm text-gray-700">
+          <p className="text-sm text-sub my-2">
             {comment.content}
           </p>
 
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-4 mt-1 text-xs text-gray-500">
+        <div className="flex items-center gap-4 mt-2 text-xs text-sub ms-2 ">
 
           {/* Like */}
-          <button className="flex items-center gap-1 hover:text-red-500 transition">
+          <button className="flex items-center gap-1 hover:text-blue-500 transition">
             <FaRegThumbsUp />
             Like
           </button>
@@ -56,7 +56,7 @@ export default function CommentCard({ comment }) {
           </button>
 
           {/* Time */}
-          <span>{formatPostDate(comment.createdAt)}</span>
+          <span className="text-sub">{formatPostDate(comment.createdAt)}</span>
 
           {/* Delete*/}
           {/* { (

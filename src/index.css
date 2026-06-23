@@ -2,4 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
 
+  /* 🌐 App background */
+  .app-bg {
+    @apply bg-[#F6F7F9] dark:bg-[#0F172A];
+  }
+
+  /* 🧱 Card (posts, notifications, etc.) */
+   .card {
+    @apply bg-white dark:bg-[#1E293B]
+           border border-gray-200 dark:border-[#334155]
+           rounded-xl
+           shadow-sm
+           hover:shadow-md
+           transition;
+  }
+  .my-border{
+    @apply border-gray-200 dark:border-[#334155]
+  }
+  /* 📝 Primary text */
+  .text-main {
+    @apply text-[#111827] dark:text-[#E2E8F0];
+  }
+
+  /* 🧾 Secondary text */
+  .text-sub {
+    @apply text-[#6B7280] dark:text-[#94A3B8] ;
+  }
+
+  /* 🔵 Primary action (better than facebook blue) */
+  .primary {
+    @apply bg-[#3B82F6] hover:bg-[#2563EB]
+           text-white transition;
+  }
+
+  /* 🧊 Soft hover effect */
+  .hover-item {
+    @apply hover:bg-[#EEF2FF] dark:hover:bg-[#334155]
+           transition;
+  }
+
+  /* 🔘 Input style */
+  .input {
+    @apply bg-white dark:bg-[#1E293B]
+           border border-gray-200 dark:border-[#334155]
+           text-main
+           rounded-lg px-3 py-2 outline-none;
+  }
+  .textarea {
+    @apply bg-white dark:bg-[#1E293B] 
+           border border-gray-200 dark:border-[#334155]
+           text-main
+           rounded-lg px-3 py-2 outline-none
+           resize-y min-h-[100px] font-sans;
+}
+}

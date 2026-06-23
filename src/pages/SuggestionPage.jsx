@@ -66,7 +66,7 @@ export default function SuggestionsPage() {
           </button>
         </Link>
       ) : (
-        <h1 className="text-xl font-bold my-4 px-2 text-center">
+        <h1 className="text-xl font-bold my-4 px-2 text-center text-main">
           People you may know
         </h1>
       )}
@@ -84,7 +84,7 @@ export default function SuggestionsPage() {
           suggestions.map((user) => (
             <div
               key={user._id}
-              className="flex items-center justify-between bg-white p-2 rounded-2xl shadow-sm border hover:shadow-md transition w-full"
+              className="card flex items-center justify-between p-2 rounded-2xl shadow-sm border hover:shadow-md transition w-full"
             >
 
          
@@ -93,19 +93,19 @@ export default function SuggestionsPage() {
 
                   <img
                     src={user.photo}
-                    className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                    className="w-10 h-10 rounded-full object-cover bg-gray-50 flex-shrink-0"
                   />
 
                   <div className="min-w-0">
-                    <h3 className="font-semibold text-sm truncate">
+                    <h3 className="font-semibold text-sm truncate text-main">
                       {user.name}
                     </h3>
 
-                    <p className="text-xs text-gray-500 truncate">
+                    <p className="text-xs text-sub truncate">
                       @{user.username}
                     </p>
 
-                    <p className="text-[11px] text-gray-400">
+                    <p className="text-[11px] text-sub">
                       {user.followersCount} followers
                       {user.mutualFollowersCount
                         ? ` , ${user.mutualFollowersCount} mutual`

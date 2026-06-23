@@ -10,7 +10,7 @@ import {
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-t mt-10">
+        <footer className="card border-t mt-10">
 
             <div className="max-w-7xl mx-auto px-6 py-8">
 
@@ -21,10 +21,10 @@ export default function Footer() {
                     <div className="max-w-sm">
 
                         <h2 className="text-2xl font-bold text-blue-600">
-                            Circle SocialApp
+                            Amr SocialApp
                         </h2>
 
-                        <p className="text-gray-600 mt-3">
+                        <p className="text-sub mt-3">
                             Connect with friends, share your moments,
                             and discover new experiences.
                         </p>
@@ -34,16 +34,16 @@ export default function Footer() {
                     {/* Links */}
                     <div>
 
-                        <h3 className="font-semibold mb-3">
+                        <h3 className="font-semibold mb-3 text-main">
                             Quick Links
                         </h3>
 
-                        <ul className="space-y-2 text-gray-600">
+                        <ul className="space-y-2 *:text-sub">
 
                             <li>
                                 <Link
                                     to="/"
-                                    className="hover:text-blue-600 transition"
+                                    className=" hover:text-blue-600 transition"
                                 >
                                     Home
                                 </Link>
@@ -67,30 +67,30 @@ export default function Footer() {
                     {/* Social */}
                     <div>
 
-                        <h3 className="font-semibold mb-3">
+                        <h3 className="font-semibold mb-3 text-main">
                             Follow Us
                         </h3>
 
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 ">
                             <a href="https://wa.me/201129600311" target="_blank">
                                 <IconButton>
-                                    <WhatsApp />
+                                    <WhatsApp className="text-sub" />
                                 </IconButton>
                             </a>
 
                             <a href="https://www.linkedin.com/in/amr-ahmed-0bb9401a7" target="_blank">
                                 <IconButton>
-                                    <LinkedIn />
+                                    <LinkedIn className="text-sub" />
                                 </IconButton>
                             </a>
                             <a href="https://github.com/AmrElsalamony" target="_blank">
                                 <IconButton>
-                                    <GitHub />
+                                    <GitHub className="text-sub" />
                                 </IconButton>
                             </a>
                               <a href="https://amrelsalamony.github.io/portfolio/" target="_blank">
                                 <IconButton>
-                                     <LinkIcon />
+                                     <LinkIcon className="text-sub" />
                                 </IconButton>
                             </a>
 
@@ -102,7 +102,7 @@ export default function Footer() {
 
                 {/* Bottom */}
 
-                <div className="border-t mt-8 pt-5 text-center text-gray-500 text-sm">
+                <div className=" border-t-[1px] border-t-['#65676B'] mt-8 pt-5 text-center text-sub text-sm">
 
                     © {new Date().getFullYear()} Amr Ahmed.
                     All rights reserved.

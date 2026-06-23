@@ -8,19 +8,23 @@ import TokenContextProvider from './Contexts/AuthContext.jsx'
 import UserContextProvider from './Contexts/UserContext.jsx'
 import NotificationContextProvider from './Contexts/Notifications.jsx'
 import { ToastContainer } from 'react-toastify';
+import ThemeProvider from './Contexts/ThemeContext.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HeroUIProvider>
-      <TokenContextProvider>
-        <UserContextProvider>
-          <NotificationContextProvider>
-            <App />
-            <ToastContainer />
-          </NotificationContextProvider>
+    <ThemeProvider>
+      <HeroUIProvider>
+        <TokenContextProvider>
+          <UserContextProvider>
+            <NotificationContextProvider>
+              <App  />
+              <ToastContainer />
+            </NotificationContextProvider>
 
-        </UserContextProvider>
-      </TokenContextProvider>
-    </HeroUIProvider>
+          </UserContextProvider>
+        </TokenContextProvider>
+      </HeroUIProvider>
+    </ThemeProvider>
+
   </StrictMode>
   ,
 )

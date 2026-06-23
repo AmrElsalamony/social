@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import {
     FaRegCommentAlt,
     FaShare,
@@ -227,7 +228,7 @@ const PostCard = ({
     };
 
     return (
-        <div className="w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:cursor-pointer">
+        <div className="card w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-2xl  overflow-hidden hover:cursor-pointer">
 
             {/* Header */}
             <div className="flex justify-between items-start p-4">
@@ -239,10 +240,10 @@ const PostCard = ({
                             className="w-12 h-12 rounded-full object-cover"
                         />
                         <div>
-                            <h3 className="font-semibold text-gray-900">
+                            <h3 className="font-semibold text-main">
                                 {postData?.user?.name}
                             </h3>
-                            <div className="flex items-center gap-1 text-sm text-gray-500">
+                            <div className="flex items-center gap-1 text-sm text-sub">
                                 <span>{formatPostDate(postData.createdAt)}</span>
                                 <span>·</span>
                                 <FaGlobeAmericas className="text-xs" />
@@ -255,23 +256,23 @@ const PostCard = ({
                     {/* Bookmark Button */}
                     <button
                         onClick={() => bookMarkFunction(postData._id)}
-                        className="px-2 mt-[-5px] rounded-full hover:bg-gray-100 active:bg-gray-200 transition-all duration-200 text-3xl"
+                        className="px-2 mt-[-5px] rounded-full transition-all duration-200 text-3xl"
                         title="Bookmark"
                     >
-                        {isBookMarked ? '★' : '☆'}
+                      {isBookMarked ? <FaBookmark  className="text-blue-600 text-xl" /> : <FaRegBookmark className="text-sub hover:text-blue-600 transition duration-200 text-xl" />}
                     </button>
 
                     {isOwner && (
                         <>
                             <button
                                 onClick={() => setThreeDots(!threeDots)}
-                                className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition"
+                                className="w-10 h-10 rounded-full text-sub hover:text-blue-600 flex items-center justify-center transition"
                             >
                                 <BsThreeDots size={20} />
                             </button>
 
                             {threeDots && (
-                                <div className="absolute top-12 right-[-10px] w-44 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50">
+                                <div className="absolute top-12 right-[-10px] w-44 card  rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-20">
                                     <button
                                         onClick={() => {
                                             setShowUpdateModal(true);
@@ -280,17 +281,17 @@ const PostCard = ({
                                             setSelectedImage(null);
                                             setRemoveImage(false);
                                         }}
-                                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 transition-all duration-200"
+                                        className="w-full px-4 py-4 flex items-center gap-3 hover:bg-green-50 transition-all duration-200 "
                                     >
-                                        <i className="fa-solid fa-pen text-gray-500"></i>
-                                        <span className="text-sm font-medium text-gray-700">Update Post</span>
+                                        <i className="fa-solid fa-pen text-green-500"></i>
+                                        <span className="text-sm font-medium text-green-500">Update Post</span>
                                     </button>
 
-                                    <div className="h-px bg-gray-100" />
+                                    <div className="h-px dark:bg-[#334155] bg-gray-50" />
 
                                     <button
                                         onClick={() => deletePostFunction(postData._id)}
-                                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-50 transition-all duration-200 text-red-500 disabled:opacity-50"
+                                        className="w-full px-4 py-4 flex items-center gap-3 hover:bg-red-50 transition-all duration-200 text-red-500 disabled:opacity-50"
                                     >
                                         <i className="fa-solid fa-trash"></i>
                                         Delete Post
@@ -304,19 +305,19 @@ const PostCard = ({
 
             {/* Content */}
             <div className="px-4 ">
-                <p className="text-gray-800 leading-7">{postData.body}</p>
+                <p className="text-main leading-7">{postData.body}</p>
             </div>
             <div>
 
                 {postData?.sharedPost &&
                     <Link to={`/post-details/${originalPost._id}`}>
                         <div className="px-4">
-                            <div className="text-gray-500 text-sm mb-2">
+                            <div className="text-sub text-sm mb-2">
                                 {sharer.name} shared a post
                             </div>
 
-                            <p className="mb-3">{postData.body}</p>
-                            <div className="border rounded-xl p-3">
+                            <p className="mb-3 text-sub">{postData.body}</p>
+                            <div className="border my-border rounded-xl p-3">
 
                                 <div className="flex gap-2 items-center mb-2">
                                     <img
@@ -325,15 +326,15 @@ const PostCard = ({
                                     />
 
                                     <div>
-                                        <h4>{originalPost.user.name}</h4>
-                                        <span className="text-sm text-gray-500">
+                                        <h4 className="text-main">{originalPost.user.name}</h4>
+                                        <span className="text-sm text-sub">
                                             @{originalPost.user.username}
                                         </span>
                                     </div>
                                 </div>
 
-                                <p>{originalPost.body}</p>
-                                <img className="max-h-[400px] w-full" src={originalPost.image} alt="" />
+                                <p className="text-main mb-3">{originalPost.body}</p>
+                                <img className="max-h-[400px] w-full rounded-lg" src={originalPost.image} alt="" />
 
                             </div>
 
@@ -350,17 +351,17 @@ const PostCard = ({
 
             {/* Image */}
             {postData.image && (
-                <div className="relative group overflow-hidden max-h-[400px]">
+                <div className="relative group overflow-hidden max-h-[400px] px-2 mt-2">
                     <img
                         src={postData.image}
                         alt=""
-                        className="w-full object-cover transition duration-500 group-hover:scale-105"
+                        className="w-full object-cover transition duration-500 group-hover:scale-105 rounded-lg"
                     />
                 </div>
             )}
 
             {/* Likes & Comments Count */}
-            <div className="px-4 py-3 flex justify-between items-center text-sm text-gray-500 border-b border-gray-200">
+            <div className="px-4 py-3 flex justify-between items-center text-sm text-sub border-b dark:border-[#334155]">
                 {likesCount > 0 && (
                     <Link to={`/post-details/${postData._id}`}
 
@@ -377,13 +378,13 @@ const PostCard = ({
 
                     {postData.commentsCount > 0 && (
 
-                        <Link className="hover:underline" to={`/post-details/${postData._id}`}>
+                        <Link className="hover:underline text-sub" to={`/post-details/${postData._id}`}>
                             {postData.commentsCount}{" "}
                             {postData.commentsCount === 1 ? "comment" : "comments"}
                         </Link>
                     )}
                     {sharesCount > 0 && (
-                        <Link className="hover:underline" to={`/post-details/${postData._id}`}>
+                        <Link className="hover:underline text-sub" to={`/post-details/${postData._id}`}>
 
                             {postData.sharesCount}{" "}
                             {postData.sharesCount === 1 ? "share" : "shares"}
@@ -397,7 +398,7 @@ const PostCard = ({
                 <button
                     onClick={likeFunction}
                     disabled={likesLoading}
-                    className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 transition font-medium"
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-[#334155] transition font-medium"
                 >
                     {likesLoading ? (
                         <i className="fa fa-spinner fa-spin text-blue-600" />
@@ -408,15 +409,15 @@ const PostCard = ({
                         </>
                     ) : (
                         <>
-                            <ThumbUpOffAltIcon fontSize="small" className="text-gray-600" />
-                            <span className="text-gray-600">Like</span>
+                            <ThumbUpOffAltIcon fontSize="small" className="text-sub" />
+                            <span className="text-sub">Like</span>
                         </>
                     )}
                 </button>
 
                 <Link
                     to={`/post-details/${postData._id}`}
-                    className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 transition font-medium text-gray-600"
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-[#334155] transition font-medium text-sub"
                 >
                     <FaRegCommentAlt /> Comment
                 </Link>
@@ -424,14 +425,14 @@ const PostCard = ({
                 {isShared === true ?
                     <button
                         disabled={true}
-                        className=" cursor-not-allowed flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 transition font-medium text-blue-600"
+                        className=" cursor-not-allowed flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-[#334155] transition font-medium text-blue-600"
                     >
                         <FaShare className="text-blue-500" /> Shared
                     </button>
                     :
                     <button
                         onClick={() => handleShare(postData._id)}
-                        className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 transition font-medium text-gray-600"
+                        className="flex items-center justify-center gap-2 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-[#334155] transition font-medium text-sub"
                     >
                         <FaShare /> Share
                     </button>
@@ -462,18 +463,18 @@ const PostCard = ({
             {/* Update Modal */}
             {showUpdateModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 ">
-                    <div className="bg-white w-full max-w-lg rounded-xl p-6 shadow-2xl mx-3">
-                        <h2 className="text-xl font-semibold mb-4">Update Post</h2>
+                    <div className="card w-full max-w-lg rounded-xl p-6 shadow-2xl mx-3">
+                        <h2 className="text-xl font-semibold mb-4 text-main">Update Post</h2>
 
                         <textarea
                             value={updatedBody}
                             onChange={(e) => setUpdatedBody(e.target.value)}
-                            className="w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-blue-500 min-h-[100px]"
+                            className="input w-full border border-gray-300 p-3 rounded-xl focus:outline-none focus:border-blue-500 min-h-[100px]"
                             placeholder="What's on your mind?"
                         />
 
                         <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-sub mb-1">
                                 Change Image (optional)
                             </label>
                             <input
@@ -487,7 +488,7 @@ const PostCard = ({
                                         setRemoveImage(false);
                                     }
                                 }}
-                                className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                                className="w-full text-sm text-sub file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                             />
                         </div>
 
@@ -535,7 +536,7 @@ const PostCard = ({
                         <div className="flex justify-end gap-3 mt-6">
                             <button
                                 onClick={closeUpdateModal}
-                                className="px-5 py-2 text-gray-600 hover:bg-gray-100 rounded-xl transition"
+                                className="text-red-900 bg-red-100 px-5 py-2  hover:bg-red-400 rounded-xl transition"
                             >
                                 Cancel
                             </button>

@@ -9,6 +9,8 @@ const NotificationLoadingCard = () => {
       p-4
       border-b
       animate-pulse
+      card
+      rounded-none
       "
     >
       {/* Avatar */}
@@ -28,6 +30,7 @@ const NotificationLoadingCard = () => {
 
         <div
           className="
+          
           absolute
           -bottom-1
           -right-1
@@ -42,7 +45,7 @@ const NotificationLoadingCard = () => {
 
       {/* Content */}
 
-      <div className="flex-1">
+      <div className="flex-1 ">
 
         <div
           className="
