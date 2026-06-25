@@ -10,7 +10,7 @@ import {
 
 export default function Footer() {
     return (
-        <footer className="card border-t mt-10">
+        <footer className="card border-t mt-10 rounded-none">
 
             <div className="max-w-7xl mx-auto px-6 py-8">
 

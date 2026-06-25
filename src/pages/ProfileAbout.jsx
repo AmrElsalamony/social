@@ -16,9 +16,9 @@ export default function AboutSection() {
      
     }, [user]);
   return (
-    <Card className="card w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl shadow-md">
+    <Card className="card w-[95%] sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto rounded-xl shadow-md ">
 
-      <CardContent>
+      <CardContent className=''>
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-4 ">
